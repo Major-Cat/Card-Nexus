@@ -16,19 +16,18 @@ class Test_cube(Entity):
 			scale = (3,2)
 			)
 
-
-testboi = tuple([DropdownMenuButton(i) for i in temp_users])
-print(testboi,"testboi")
-added_users = DropdownMenu('Users', buttons=testboi,parent = scene,position=(-5,0.5),scale = (2.5,0.5))
+selected_user = ""
+users = tuple([DropdownMenuButton(i, on_click=selected_user) for i in temp_users])
+added_users = DropdownMenu('Users', buttons=users,parent = scene,position=(-5,0.5),scale = (2.5,0.5))
 if added_users.on_mouse_enter():
-	print("hello there")
+	selected_user = added_users
 
 Text.size = 0.3
 Text.default_resolution = 1080 * 0.05
 
 back1 = Test_cube()
 test = Text(text="log in",parent = scene, origin=(5,-5), background=False,color = Color(0,0,0,0.5))
-test = Text(text="log in",parent = scene, origin=(5,-5), background=False,color = Color(0,0,0,0.5))
+test = Text(text=selected_user,parent = scene, origin=(2,-1), background=True)
 
 
 app.run()
