@@ -1,42 +1,25 @@
 from ursina import *
 from ursina.prefabs.dropdown_menu import DropdownMenu, DropdownMenuButton
 
-global selected_user
-global b
-selected_user = ""
 temp_users = ["jim","john","james"]
 
 app = Ursina()
 
-def does_a_ting(i):
-	selected_user = i
-	print(selected_user)
-
-
-
 def update():
+	print(New_name,"New_name")
 	#print(selected_user)
-	b = tuple([DropdownMenuButton(i, on_click=does_a_ting) for i in temp_users])
-
-	added_users = DropdownMenu('Users', buttons=b,parent = scene,position=(-5,0.5),scale = (2.5,0.5))
-
-class Test_cube(Entity):
-	def __init__(self):
-		super().__init__(
-			parent = scene,
-			model = 'quad',
-			texture = 'white_cube',
-			position = (-3.6,1.6,0.1),
-			scale = (3,2)
-			)
-
+	#added_users = DropdownMenu('Users', buttons=tuple([DropdownMenuButton(user) for user in temp_users]),parent = scene,position=(-5,0.5),scale = (2.5,0.5))
+	#added_users.input(held_keys)
 
 Text.size = 0.02
 Text.default_resolution = 1080 * 0.05
 
-back1 = Test_cube()
-test = Text(text="log in",scale = 15,parent = scene, origin=(5,-5), background=False,color = Color(0,0,0,0.8))
-#test = Text(text=selected_user,parent = scene, origin=(2,-1), background=True)
+back1 = Entity(parent=scene,model="quad",position=(-3.6,1.6,0.1),scale=(3,2))
+log_in = Text(text="log in",scale = 15,parent = scene, origin=(4.8,-5), background=False,color = Color(0,0,0,0.8))
+
+back2 = Entity(parent=scene,model="quad",position=(3.6,1.6,0.1),scale=(3,2))
+sign_up = Text(text="sign up",scale = 15,parent = scene, origin=(-3.5,-5), background=False,color = Color(0,0,0,0.8))
+New_name = InputField(text_field = TextField(world_parent=scene, x=-.45, y=.3, z=-.1, max_lines=2)).input(held_keys)
 
 
 app.run()
