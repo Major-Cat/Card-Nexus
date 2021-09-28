@@ -1,10 +1,24 @@
 from ursina import *
 from ursina.prefabs.dropdown_menu import DropdownMenu, DropdownMenuButton
 
+global selected_user
+global b
+selected_user = ""
 temp_users = ["jim","john","james"]
 
 app = Ursina()
 
+def does_a_ting(i):
+	selected_user = i
+	print(selected_user)
+
+
+
+def update():
+	#print(selected_user)
+	b = tuple([DropdownMenuButton(i, on_click=does_a_ting) for i in temp_users])
+
+	added_users = DropdownMenu('Users', buttons=b,parent = scene,position=(-5,0.5),scale = (2.5,0.5))
 
 class Test_cube(Entity):
 	def __init__(self):
@@ -16,18 +30,13 @@ class Test_cube(Entity):
 			scale = (3,2)
 			)
 
-selected_user = ""
-users = tuple([DropdownMenuButton(i, on_click=selected_user) for i in temp_users])
-added_users = DropdownMenu('Users', buttons=users,parent = scene,position=(-5,0.5),scale = (2.5,0.5))
-if added_users.on_mouse_enter():
-	selected_user = added_users
 
-Text.size = 0.3
+Text.size = 0.02
 Text.default_resolution = 1080 * 0.05
 
 back1 = Test_cube()
-test = Text(text="log in",parent = scene, origin=(5,-5), background=False,color = Color(0,0,0,0.5))
-test = Text(text=selected_user,parent = scene, origin=(2,-1), background=True)
+test = Text(text="log in",scale = 15,parent = scene, origin=(5,-5), background=False,color = Color(0,0,0,0.8))
+#test = Text(text=selected_user,parent = scene, origin=(2,-1), background=True)
 
 
 app.run()
