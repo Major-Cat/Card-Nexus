@@ -1,5 +1,6 @@
 from ursina import *
 import json
+from hashlib import sha256
 
 app = Ursina()
 
@@ -21,18 +22,22 @@ class usable_button(Button):
 	def button_input(self,username,password):
 		if self.hovered == True:
 			#if held_keys == "left mouse down":
-				#with open("Storage/temp_storage.json","r") as f:
-				#	datafile = json.load(f)
-				#datafile.append() = username,password
-				#with open("Storage/temp_storage.json","w") as f:
-				#	json.dump(datafile, f, indent=4)
-				print("hey")
+
+				with open("Storage/temp_storage.json","r") as f:
+					datafile = json.load(f)
+				b = bytes(password, 'utf-8')
+				password = sha256(b).hexdigest()
+				datafile[username] = str(password)
+				with open("Storage/temp_storage.json","w") as f:
+					json.dump(datafile, f, indent=4)
+
+"""
 				with open("Storage/temp_storage.json", "r+") as f:
 					data = json.load(f)
 					data.update({username,password})
 					f.seek(0)
 					json.dump(data, f)
-
+"""
 
 
 
