@@ -1,10 +1,12 @@
 from ursina import *
+import json
 
 app = Ursina()
 
-class t_button(Button):
-	def __init__(self,texture = "white_cube",x=6.5,y=0,New_name=None,New_pass=None):
-		self.New_name,self.New_pass = New_name, New_pass
+new = []
+
+class usable_button(Button):
+	def __init__(self,texture = "white_cube",x=6.5,y=0):
 		super().__init__(
 			parent = scene,
 			text = "sign up",
@@ -16,11 +18,23 @@ class t_button(Button):
 			scale = (1.5,1)
 			)
 
-	def input(self,key):
-		if self.hovered:
-			if key == 'left mouse down':
-				#print(self.New_name.text,",",self.New_pass.text)
-				return self.New_name.text,",",self.New_pass.text
+	def button_input(self,username,password):
+		if self.hovered == True:
+			#if held_keys == "left mouse down":
+				#with open("Storage/temp_storage.json","r") as f:
+				#	datafile = json.load(f)
+				#datafile.append() = username,password
+				#with open("Storage/temp_storage.json","w") as f:
+				#	json.dump(datafile, f, indent=4)
+				print("hey")
+				with open("Storage/temp_storage.json", "r+") as f:
+					data = json.load(f)
+					data.update({username,password})
+					f.seek(0)
+					json.dump(data, f)
+
+
+
 
 
 Text.size = 0.02
@@ -35,16 +49,13 @@ log_in = Text(text="log in",scale = 15,parent = scene, origin=(4.8,-5), backgrou
 
 back2 = Entity(parent=scene,model="quad",position=(3.6,1.6,0.1),scale=(3,2))
 sign_up = Text(text="sign up",scale = 15,parent = scene, origin=(-3.5,-5), background=False,color = Color(0,0,0,0.8))
-sign_up_button = t_button(New_name = new_name, New_pass = new_pass)
+
+sign_up_button = usable_button()
+#sign_up_button.input = new.append
+
+not_words = ["down","up","enter","caps","shift","click"]
 
 def update():
-	if held_keys == "left mouse down":
-		print("hello world")
-		new_dude = sign_up_button.input(held_keys)
-		print(new_dude,"new dude")
-
-
-
-
-
+	print(new_name.text)
+	sign_up_button.button_input(new_name.text,new_pass.text)
 app.run()

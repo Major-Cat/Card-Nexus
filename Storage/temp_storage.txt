@@ -1,3 +1,0 @@
-jim, jimpass
-john, johnpass
-james, jamespass
