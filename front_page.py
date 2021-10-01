@@ -45,10 +45,7 @@ class usable_button(Button):
 		#	pass 	#this will also just run the next file or something that I'll adjust based on what the other files want passed to them
 
 
-
-
-
-
+#def run():
 Text.size = 0.02
 Text.default_resolution = 1080 * 0.05
 
@@ -68,11 +65,10 @@ sign_up = Text(text="sign up",scale = 15,parent = scene, origin=(-3.5,-5), backg
 
 sign_up_button = usable_button(message="sign up")
 log_in_button = usable_button(x=-2.5,y=-1.2,message = "log in")
-#guest_button = usable_button(x=-0,y=-3,message = "Continue as guest",width = 4)
+guest_button = usable_button(x=-0,y=-3,message = "Continue as guest",width = 4)
 
 def update():
 	sign_up_button.sign_up_function(new_name.text,new_pass.text)
 	log_in_button.log_in_function(log_name.text,log_pass.text)
 	#guest_button.guest_mode()
-
 app.run()
