@@ -10,15 +10,16 @@ class usable_button(Button):
 		super().__init__(
 			parent = scene,
 			text = message,
-			color = color.gray,
+			color = color.light_gray,
 			texture = "white_cube",
-			highlight_color = color.light_gray,
+			highlight_color = color.white,
 			pressed_color = color.dark_gray,
 			position = (x,y),
 			scale = (width,1)
 			)
 
 	def sign_up_function(self,username,password):
+		print(self.hovered,"hover")
 		if self.hovered and held_keys["left mouse"]:
 			with open("Storage/temp_storage.json","r") as f:
 				datafile = json.load(f)
@@ -64,11 +65,11 @@ sign_ip_background = Entity(parent=scene,model="quad",position=(3.6,1.6,0.1),sca
 sign_up = Text(text="sign up",scale = 15,parent = scene, origin=(-3.5,-5), background=False,color = Color(0,0,0,0.8))
 
 sign_up_button = usable_button(message="sign up")
-log_in_button = usable_button(x=-2.5,y=-1.2,message = "log in")
-guest_button = usable_button(x=-0,y=-3,message = "Continue as guest",width = 4)
+#log_in_button = usable_button(x=-2.5,y=-1.2,message = "log in")
+#guest_button = usable_button(x=-0,y=-3,message = "Continue as guest",width = 4)
 
 def update():
 	sign_up_button.sign_up_function(new_name.text,new_pass.text)
-	log_in_button.log_in_function(log_name.text,log_pass.text)
+	#log_in_button.log_in_function(log_name.text,log_pass.text)
 	#guest_button.guest_mode()
 app.run()
