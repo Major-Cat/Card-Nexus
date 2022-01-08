@@ -63,18 +63,8 @@ AI{
 	defines the available AIs for the game, recieves variables, returns action
 	
 	classes{
-		
-	}
-}
-
-score{
-	calculates the score for a given hand
-	
-	classes{
-		Score{
-			takes all avaiable cards for the player and decides a score
-			
-			checks for flushes, straights,four, full houses, three, two pair, pair, value of best card
+		AI{
+			IDK
 		}
 	}
 }
