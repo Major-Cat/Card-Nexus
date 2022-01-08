@@ -33,6 +33,7 @@ cards {
 		
 	}
 }
+
 poker{
 	creates the display for poker as well as activating the AIs
 	
@@ -40,7 +41,12 @@ poker{
 		Button{
 			gives a button idk
 		}
-		
+		Community_Cards{
+			list of cards that all players make use of
+		}
+		Hand{
+			List of the cards in each of the players hands
+		}
 	}
 }
 
