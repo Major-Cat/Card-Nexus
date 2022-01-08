@@ -39,14 +39,12 @@ def sign_up_function():
 	username=new_name.text
 	password=new_pass.text
 
-	print(username)
-	print(password)
-
 	with open("Storage/account.json","r") as f:
 		datafile = json.load(f)
 	b = bytes(password, 'utf-8')
 	password = sha256(b).hexdigest()
-	datafile[username] = str(password)
+	if not(username in datafile):
+		datafile[username] = str(password)
 	with open("Storage/account.json","w") as f:
 		json.dump(datafile, f, indent=4)
 

@@ -14,27 +14,27 @@ class Card:
 		elif self.value == 13: self.face = "K"
 
 class Deck:
-	def __init__(self,cards=[],no_cards=13,suits="SCHD"):
-		self.cards = cards
+	def __init__(self,Cards=[],no_cards=13,suits="SCHD"):
+		self.Cards,self.suits,self.no_cards = Cards,suits,no_cards
 		self.cards()
 		self.shuffle()
 				
 	def cards(self):
-		for i in suits:
-			for s in range(1,no_cards+1):
-				self.cards.append(Card(s,i))
+		for i in self.suits:
+			for s in range(1,self.no_cards+1):
+				self.Cards.append(Card(s,i))
 
 	def shuffle(self):
 		shuffled_deck = []
-		for i in range(len(self.cards)):
-			card = choice(self.cards)
+		for i in range(len(self.Cards)):
+			card = choice(self.Cards)
 			shuffled_deck.append(card)
-			self.cards.remove(card)
-		self.cards = shuffled_deck
+			self.Cards.remove(card)
+		self.Cards = shuffled_deck
 
 	def draw(self):
-		if len(self.cards) == 0:
+		if len(self.Cards) == 0:
 			self.cards(self)
-		drawn = self.cards[0]
-		self.cards.remove(drawn)
+		drawn = self.Cards[0]
+		self.Cards.remove(drawn)
 		return drawn

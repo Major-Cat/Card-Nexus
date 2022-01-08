@@ -18,7 +18,7 @@ menu{
 	}
 }
 
-cards {
+cards{
 	generates a deck of shuffled cards.
 	
 	classes{
@@ -44,8 +44,17 @@ poker{
 		Community_Cards{
 			list of cards that all players make use of
 		}
+		Player{
+			Contains the hand and money of each player
+		}
+		Money{
+			Each players money
+		}
 		Hand{
-			List of the cards in each of the players hands
+			List of the cards in each of the players hands, records a score for the current hand
+		}
+		Pot{
+			Stores the chips
 		}
 	}
 }
