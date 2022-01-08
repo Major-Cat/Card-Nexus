@@ -1,0 +1,67 @@
+main{
+	presents a login/signup screen, saves new data
+	
+	classes{
+		Button{
+			gives a button idk
+		}
+	}
+}
+
+menu{
+	menu screen between front_page and poker, load game, start new, close game.
+	
+	classes{
+		Button{
+			gives a button idk
+		}
+	}
+}
+
+cards {
+	generates a deck of shuffled cards.
+	
+	classes{
+		Card{
+			generates a default card with a suit and value
+			creates a face value if a 1 or above 10
+		}
+		
+		Deck{
+			generates a shuffled deck of 52 Card objects
+		}
+		
+	}
+}
+poker{
+	creates the display for poker as well as activating the AIs
+	
+	classes{
+		Button{
+			gives a button idk
+		}
+		
+	}
+}
+
+AI{
+	defines the available AIs for the game, recieves variables, returns action
+	
+	classes{
+		
+	}
+}
+
+score{
+	calculates the score for a given hand
+	
+	classes{
+		Score{
+			takes all avaiable cards for the player and decides a score
+			
+			checks for flushes, straights,four, full houses, three, two pair, pair, value of best card
+		}
+	}
+}
+
+
