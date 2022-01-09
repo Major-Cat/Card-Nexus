@@ -38,10 +38,24 @@ class Deck {
 		Cards = new_deck
 	}
 	
-	Private function draw{
-		Drawn = Cards[0]
-		Cards.remove(Drawn)
-		return Drawn
+	Private function draw (num=1){
+		for i in num{
+			Drawn = Cards[0]
+			Cards.remove(Drawn)
+			return Drawn
+		}
+	}
+}
+
+class Community_Cards{
+	private Cards
+	private procedure Draw{
+		if len(Cards) == 0{
+			Cards = Deck.draw(3)
+		}
+		else if len(Cards) > 2 and len(Cards) < 5{
+			Cards.append(Deck.draw())
+		}
 	}
 }
 
@@ -77,7 +91,82 @@ class Hand{
 		}
 		Duplicates = {}
 		for i in Values{
-			
+			Duplicates[i] = Values.count(i)
+		}
+		Dupe_score = [0,0,0]
+		for i,v in Duplicates{
+			if v == 4{
+				Dupe_score[0] ++
+			}
+			else if v == 3{
+				Dupe_score[1] ++
+			}
+			else if v == 2{
+				Dupe_score[2] ++
+			}
+		}
+		if len (Values) >= 5{
+			Values = sorted(Values)
+			for i in Values{
+				
+			}
 		}
 	}
+}
+
+class Pot{
+	private Total
+	private Bet
+}
+
+class Player{
+	private Money
+	private Hand
+}
+
+class Money{
+	private UMoney
+	private Bet
+	
+	private procedure Raise{
+		while True{
+			print "raise how much?"
+			raise = int(input())
+			if raise + Bet =< Pot.Bet{
+				pass
+			}
+			else{
+				Pot.Total = Pot.Total + raise
+				Pot.Bet = raise + Bet
+				Bet = Bet + raise
+				UMoney = UMoney - raise
+			}
+		}
+	}
+	
+	private procedure Call{
+		Pot.Total = Pot.Total + (Pot.Bet - Bet)
+		UMoney = UMoney - (Pot.Bet - Bet)
+		Bet = Pot.Bet
+	}
+	
+	private procedure Win{
+		UMoney = UMoney + Pot.Total
+		Bet = 0
+		Pot.Bet = 0
+		Pot.Total = 0
+	}
+}
+
+class AI{
+	private Player
+	private Pot
+	private Difficulty
+	
+	private function output{
+		Player.Hands.Score = Player.Hand.Score * (5 / len(Player.Hand.Cards)
+		
+		
+	}
+	
 }
