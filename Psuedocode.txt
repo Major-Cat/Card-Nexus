@@ -108,7 +108,24 @@ class Hand{
 		if len (Values) >= 5{
 			Values = sorted(Values)
 			for i in Values{
-				
+				Pos_straights = []
+				for x in range(i, i+5){
+					if i <= (max(Values)-4{
+						Pos_straights.append(x)
+					}
+				}
+				Is_straight = []
+				for elem in Pos_straights{
+					if elem in Values and Values != []{
+						Is_straight.append(True
+					}
+					else{
+						Is_straight.append(False)
+					}
+				}
+				if all(Is_straight) and Pos_straights != []{
+					print("straight")
+				}
 			}
 		}
 	}
@@ -164,9 +181,13 @@ class AI{
 	private Difficulty
 	
 	private function output{
-		Player.Hands.Score = Player.Hand.Score * (5 / len(Player.Hand.Cards)
-		
+		if Difficulty == 0{	#easy
+			Player.Hand.Score = Player.Hand.Score + random.randint(-20,20)
+		}
+		else if Difficulty == 1{	#medium
+			Player.Hand.Score = Player.Hand.Score + random.randint(-10,10)
+		}
+		Player.Hand.Score = Player.Hand.Score * (5 / len(Player.Hand.Cards)
 		
 	}
-	
 }
