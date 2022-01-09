@@ -1,0 +1,83 @@
+class Card {
+	private value
+	private suit
+	private face
+	Private procedure make_face {
+		if value == 1 { 
+			self.face = “A”
+		}
+		else if value == 11 { 
+			self.face == “J”
+		}
+		else if value == 12 {
+			self.face == “Q”
+		}
+		else if value == 13{
+			self.face ==  “K”
+		}
+	}
+}
+
+class Deck {
+	private Cards
+	private suits
+	private no_cards
+	for i in suits{
+		for j in no_cards{
+		Cards.append(Card(i, j))
+		}
+	}
+	
+	Private procedure shuffle{
+		private new_deck
+		for i in Cards{
+			next_card = random.choice(Cards)
+			new_deck.append(next_card)
+			Cards.pop(next_card)
+		}
+		Cards = new_deck
+	}
+	
+	Private function draw{
+		Drawn = Cards[0]
+		Cards.remove(Drawn)
+		return Drawn
+	}
+}
+
+class Hand{
+	private Cards
+	Cards = Deck.draw(2)
+	Cards.append(Community_Cards.Cards)
+	private function Score{
+		#look for flush
+		Suits = [0,0,0,0]
+		for i in Cards{
+			if i.suit == “S”{
+				Suits[0] ++
+			}
+			else if i.suit == “H”{
+				Suits[1] ++
+			}
+			else if i.suit == “C”{
+				Suits[2] ++
+			}
+			else {
+				Suits[3] ++
+			}
+		}
+		for i in Suits{
+			if i >= 4{
+				Flush = True
+			}
+		}
+		Values = []
+		for i in Cards{
+			Values.append(Cards.value)
+		}
+		Duplicates = {}
+		for i in Values{
+			
+		}
+	}
+}

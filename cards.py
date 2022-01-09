@@ -15,7 +15,7 @@ class Card:
 
 class Deck:
 	def __init__(self,Cards=[],no_cards=13,suits="SCHD"):
-		self.Cards,self.suits,self.no_cards = Cards,suits,no_cards
+		self.Cards, self.suits, self.no_cards = Cards, suits, no_cards
 		self.cards()
 		self.shuffle()
 				
@@ -32,7 +32,7 @@ class Deck:
 			self.Cards.remove(card)
 		self.Cards = shuffled_deck
 
-	def draw(self):
+	def draw(self):	
 		if len(self.Cards) == 0:
 			self.cards(self)
 		drawn = self.Cards[0]
