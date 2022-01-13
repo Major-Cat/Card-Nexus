@@ -7,16 +7,7 @@ usable_characters = "1234567890-_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZX
 
 class my_button(Button):
 	def __init__(self,x=3.5,y=0,message="",width = 2):
-		super().__init__(
-			parent = scene,
-			text = message,
-			color = color.light_gray,
-			texture = "white_cube",
-			highlight_color = color.white,
-			pressed_color = color.dark_gray,
-			position = (x,y),
-			scale = (width,0.5)
-			)
+		super().__init__(parent = scene, text = message, color = color.light_gray, texture = "white_cube", highlight_color = color.white, pressed_color = color.dark_gray, position = (x,y), scale = (width,0.5))
 
 Text.size = 0.02
 Text.default_resolution = 1080 * 0.05
@@ -51,12 +42,12 @@ def sign_up_function():
 def log_in_function():
 	username=log_name.text
 	password=log_pass.text
+
 	with open("Storage/account.json","r") as f:
 		datafile = json.load(f)
 	b = bytes(password, 'utf-8')
 	password = sha256(b).hexdigest()
 
-	print(datafile)
 	try:
 		if datafile[username] == password:
 			scene.clear()
