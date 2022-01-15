@@ -42,7 +42,7 @@ def chip_vis(chip):
 		chip.visible = False
 
 def Win(centre,winner,*bets):
-	chip_vis(centre)
+	centre.visible = False
 	for i in bets:
 		i.visible = True
 		chip_reset(i,winner)
