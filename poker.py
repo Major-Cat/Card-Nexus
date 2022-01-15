@@ -33,13 +33,17 @@ class Hand():
 		self.Cards.append(l.draw())
 		self.Cards.append(l.draw())
 
+def call(money,pot):
+	change = pot.bet - money.bet
+	money.money -= change
+
 class money():
 	def __init__(self,money=100,bet=0):
 		self.money = money
 		self.bet = bet
 
 	def Bet(self,pot):
-		if self.bet == pot.bet:
+		if self.bet == pot.bet:	
 			pass # check/bet/fold
 		elif self.bet < pot.bet:
 			pass # call/raise/fold
