@@ -7,8 +7,8 @@ app = Ursina()
 window.fps_counter.enabled = False
 
 class my_button(Button):
-	def __init__(self,x=3.5,y=0,message="",width = 2):
-		super().__init__(parent = scene, text = message, color = color.light_gray, texture = "white_cube", highlight_color = color.white, pressed_color = color.dark_gray, position = (x,y), scale = (width,0.5))
+	def __init__(self,x=3.5,y=0,message="",scale = (2,0.5)):
+		super().__init__(parent = scene, text = message, color = color.light_gray, texture = "white_cube", highlight_color = color.white, pressed_color = color.dark_gray, position = (x,y), scale = scale)
 
 class Community_Cards():
 	def __init__(self,Cards=[]):
@@ -35,26 +35,18 @@ def chip_reset(chip,dest_chip):
 	if not chip.world_position == dest:
 		chip.animate_position((dest),duration=1,curve=curve.linear)
 
-def chip_vis(chip):
-	if chip.visible == False:
-		chip.visible = True
-	else:
-		chip.visible = False
-
-def Win(centre,winner,*bets):
+def Win(centre,winner_bet,winner,*bets):
 	centre.visible = False
-	for i in bets:
-		i.visible = True
-		chip_reset(i,winner)
+	winner_bet.animate_position((winner.world_position),duration=1,curve=curve.linear)
 
-def Bet(bet_chips, centre):
-	chip_reset(bet_chips,centre)
-	if bet_chips.world_position == centre.world_position:
+def Bet(bet_chip, centre):
+	bet_chip.animate_position((centre.world_position),duration=1,curve=curve.linear)
+	if bet_chip.world_position == centre.world_position:
 		centre.visible = True
-		bet_chips.visible = False
+		bet_chip.visible = False
 
 
-table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(80,1,0.4))
+table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
 table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
 
 player1_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
@@ -67,25 +59,54 @@ player7_chips = duplicate(player1_chips,position=(4,-1,-0.1))
 player8_chips = duplicate(player1_chips,position=(2,-2,-0.1))
 
 player1_bet_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
-player2_bet_chips= duplicate(player1_bet_chips,position=(-4,-1,-0.1))
-player3_bet_chips= duplicate(player1_bet_chips,position=(-4,1,-0.1))
-player4_bet_chips= duplicate(player1_bet_chips,position=(-2,2,-0.1))
-player5_bet_chips= duplicate(player1_bet_chips,position=(1,2,-0.1))
-player6_bet_chips= duplicate(player1_bet_chips,position=(4,1,-0.1))
-player7_bet_chips= duplicate(player1_bet_chips,position=(4,-1,-0.1))
-player8_bet_chips= duplicate(player1_bet_chips,position=(2,-2,-0.1))
+player2_bet_chips = duplicate(player1_bet_chips,position=(-4,-1,-0.1))
+player3_bet_chips = duplicate(player1_bet_chips,position=(-4,1,-0.1))
+player4_bet_chips = duplicate(player1_bet_chips,position=(-2,2,-0.1))
+player5_bet_chips = duplicate(player1_bet_chips,position=(1,2,-0.1))
+player6_bet_chips = duplicate(player1_bet_chips,position=(4,1,-0.1))
+player7_bet_chips = duplicate(player1_bet_chips,position=(4,-1,-0.1))
+player8_bet_chips = duplicate(player1_bet_chips,position=(2,-2,-0.1))
 
 centre_chips = Entity(parent=scene,model="quad",position=(0,0,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png",visible=False)
 
-Bet_button = my_button(message="Bet",x=-3,y=-3)
-Bet_button.on_click =lambda: Bet(player1_bet_chips,centre_chips)
-Win_button = my_button(message="Win",x=-5,y=-3)
-Win_button.on_click =lambda: Win(centre_chips,player1_chips,player1_bet_chips)
+Bet_button = my_button(message="Bet",x=-1,y=-3,scale=(1,0.25))
+Bet_button.on_click = lambda: Bet(player1_bet_chips,centre_chips)
+Win_button = my_button(message="Win",x=-2,y=-3,scale=(1,0.25))
+Win_button.on_click = lambda: Win(centre_chips,player1_bet_chips,player1_chips)
 
-Bet2_button = my_button(message="enemy Bet",x=-3,y=3)
-Bet2_button.on_click =lambda: Bet(player2_bet_chips,centre_chips)
-Win2_button = my_button(message="enemy Win",x=-5,y=3)
-Win2_button.on_click =lambda: Win(centre_chips,player2_chips,player2_bet_chips)
+Bet2_button = my_button(message="p2Bet",x=-5,y=-2.5,scale=(1,0.25))
+Bet2_button.on_click = lambda: Bet(player2_bet_chips,centre_chips)
+Win2_button = my_button(message="p2Win",x=-5,y=-3,scale=(1,0.25))
+Win2_button.on_click = lambda: Win(centre_chips,player2_bet_chips,player2_chips)
 
+Bet3_button = my_button(message="p3Bet",x=-6,y=0.5,scale=(1,0.25))
+Bet3_button.on_click =lambda: Bet(player3_bet_chips,centre_chips)
+Win3_button = my_button(message="p3Win",x=-6,y=1,scale=(1,0.25))
+Win3_button.on_click =lambda: Win(centre_chips,player3_bet_chips,player3_chips)
+
+Bet4_button = my_button(message="p4Bet",x=-2,y=3,scale=(1,0.25))
+Bet4_button.on_click =lambda: Bet(player4_bet_chips,centre_chips)
+Win4_button = my_button(message="p4Win",x=-2,y=3.5,scale=(1,0.25))
+Win4_button.on_click =lambda: Win(centre_chips,player4_bet_chips,player4_chips)
+
+Bet5_button = my_button(message="p5Bet",x=2,y=3,scale=(1,0.25))
+Bet5_button.on_click =lambda: Bet(player5_bet_chips,centre_chips)
+Win5_button = my_button(message="p5Win",x=2,y=3.5,scale=(1,0.25))
+Win5_button.on_click =lambda: Win(centre_chips,player5_bet_chips,player5_chips)
+
+Bet6_button = my_button(message="p6Bet",x=6,y=1,scale=(1,0.25))
+Bet6_button.on_click =lambda: Bet(player6_bet_chips,centre_chips)
+Win6_button = my_button(message="p6Win",x=6,y=1.5,scale=(1,0.25))
+Win6_button.on_click =lambda: Win(centre_chips,player6_bet_chips,player6_chips)
+
+Bet7_button = my_button(message="p7Bet",x=6,y=-1,scale=(1,0.25))
+Bet7_button.on_click =lambda: Bet(player7_bet_chips,centre_chips)
+Win7_button = my_button(message="p7Win",x=6,y=-1.5,scale=(1,0.25))
+Win7_button.on_click =lambda: Win(centre_chips,player7_bet_chips,player7_chips)
+
+Bet8_button = my_button(message="p8Bet",x=3,y=-3,scale=(1,0.25))
+Bet8_button.on_click =lambda: Bet(player8_bet_chips,centre_chips)
+Win8_button = my_button(message="p8Win",x=3,y=-3.5,scale=(1,0.25))
+Win8_button.on_click =lambda: Win(centre_chips,player8_bet_chips,player8_chips)
 
 app.run()
