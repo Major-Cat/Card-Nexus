@@ -10,8 +10,6 @@ class my_button(Button):
 class Community_Cards():
 	def __init__(self,Cards=[]):
 		self.Cards=Cards
-
-
 		
 class Hand():
 	def __init__(self,Cards=[]):
@@ -19,5 +17,21 @@ class Hand():
 		self.Cards.append(l.draw())
 		self.Cards.append(l.draw())
 
-def run(app):
+
+
+app = Ursina()
+window.fps_counter.enabled = False
+
+def run():
 	print(Hand().Cards)
+	table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(80,1,0.4))
+	table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
+	test_chip = Entity(parent=scene,model="quad",position=(4,1,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
+	test_chip_move = Entity(parent=scene,model="quad",position=(4,1,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
+	test_chip_move.animate_position((0,0),duration=1,curve=curve.linear)
+	
+
+	app.run()
+
+
+run()

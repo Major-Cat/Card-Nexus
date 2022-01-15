@@ -1,6 +1,6 @@
 from ursina import *
 import json
-import poker
+
 
 class my_button(Button):
 	def __init__(self,x=3.5,y=0,message="",width = 2):
@@ -11,6 +11,7 @@ class my_button(Button):
 def run(app):
 	def new_game():
 		scene.clear()
+		import poker
 		poker.run(app)
 
 	Text.size = 0.02

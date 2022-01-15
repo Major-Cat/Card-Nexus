@@ -3,6 +3,7 @@ import json, menu
 from hashlib import sha256
 
 app = Ursina()
+window.fps_counter.enabled = False
 usable_characters = "1234567890-_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM@;:?.,!*% "
 
 class my_button(Button):
