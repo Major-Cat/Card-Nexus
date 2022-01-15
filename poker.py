@@ -73,10 +73,7 @@ def change_vis(chip,vis=False):
 def Bet(bet_chip,centre,bets):
 	initial_pos = bet_chip.world_position
 	bets.append([bet_chip.world_position,bet_chip])
-	s = Sequence(Func(bet_chip.animate_position,duration=1,value=centre.world_position,curve=curve.linear),
-				1,Func(change_vis,chip=bet_chip),Func(change_vis,chip=centre,vis=True),
-				Func(bet_chip.animate_position,duration=1,value=initial_pos,curve=curve.linear),
-				1,Func(change_vis,chip=bet_chip,vis=True))
+	s = Sequence(Func(bet_chip.animate_position,duration=1,value=centre.world_position,curve=curve.linear), 1,Func(change_vis,chip=bet_chip),Func(change_vis,chip=centre,vis=True),Func(bet_chip.animate_position,duration=1,value=initial_pos,curve=curve.linear),1,Func(change_vis,chip=bet_chip,vis=True))
 	s.start()
 
 global bets
@@ -116,11 +113,12 @@ player7_bet_chips = duplicate(player1_bet_chips,position=(4,-1,-0.1))
 player8_bet_chips = duplicate(player1_bet_chips,position=(2,-2,-0.1))
 
 #if Debug == False:
-Fold_Button = my_button(message="Fold",x=-3,y=-3.5,scale=(1.5,0.65))
-Call_Button = my_button(message="Call",x=-6,y=-3.5,scale=(1.5,0.65))
-Check_Button = my_button(message="Check",x=-6,y=-3.5,scale=(1.5,0.65),visible=False)
-Raise_Button = my_button(message="Raise",x=-4.5,y=-3.5,scale=(1.5,0.65))
+
+Fold_Button = my_button(message="Fold",x=-2,y=-3.5,scale=(1.5,0.65))
+Call_Button = my_button(message="Call/Check",x=-6,y=-3.5,scale=(2.5,0.65))
+Raise_Button = my_button(message="Raise",x=-3.75,y=-3.5,scale=(1.5,0.65))
 Debug = False
+
 if Debug == True:
 	Bet_button = my_button(message="Bet",x=-1,y=-3,scale=(1,0.25))
 	Bet_button.on_click = lambda: Bet(player1_bet_chips,centre_chips,bets)
