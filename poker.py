@@ -79,9 +79,9 @@ Bet_button.on_click = lambda: Bet(player1_bet_chips,centre_chips,bets)
 Win_button = my_button(message="Win",x=-2,y=-3,scale=(1,0.25))
 Win_button.on_click = lambda: Win(centre_chips,player1_bet_chips,player1_chips,bets)
 
-Bet2_button = my_button(message="p2Bet",x=-5,y=-2.5,scale=(1,0.25))
+Bet2_button = my_button(message="p2Bet",x=-5,y=-3,scale=(1,0.25))
 Bet2_button.on_click = lambda: Bet(player2_bet_chips,centre_chips,bets)
-Win2_button = my_button(message="p2Win",x=-5,y=-3,scale=(1,0.25))
+Win2_button = my_button(message="p2Win",x=-5,y=-2.5,scale=(1,0.25))
 Win2_button.on_click = lambda: Win(centre_chips,player2_bet_chips,player2_chips,bets)
 
 Bet3_button = my_button(message="p3Bet",x=-6,y=0.5,scale=(1,0.25))
@@ -109,9 +109,9 @@ Bet7_button.on_click =lambda: Bet(player7_bet_chips,centre_chips,bets)
 Win7_button = my_button(message="p7Win",x=6,y=-1.5,scale=(1,0.25))
 Win7_button.on_click =lambda: Win(centre_chips,player7_bet_chips,player7_chips,bets)
 
-Bet8_button = my_button(message="p8Bet",x=3,y=-3,scale=(1,0.25))
+Bet8_button = my_button(message="p8Bet",x=3,y=-3.5,scale=(1,0.25))
 Bet8_button.on_click =lambda: Bet(player8_bet_chips,centre_chips,bets)
-Win8_button = my_button(message="p8Win",x=3,y=-3.5,scale=(1,0.25))
+Win8_button = my_button(message="p8Win",x=3,y=-3,scale=(1,0.25))
 Win8_button.on_click =lambda: Win(centre_chips,player8_bet_chips,player8_chips,bets)
 
 app.run()
