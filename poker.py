@@ -22,6 +22,11 @@ class Community_Cards():
 		elif len(self.Cards) == 3 or len(self.Cards) == 4:
 			self.Cards.append(l.draw())
 		
+class pot():
+	def __init__(self,bet=0,total=0):
+		self.bet = bet
+		self.total = total
+
 class Hand():
 	def __init__(self,Cards=[]):
 		self.Cards = Cards
@@ -39,37 +44,40 @@ class player():
 		self.money = money
 		self.Hand = Hand
 
-class pot():
-	def __init__(self,bet=0,total=0):
-		self.bet = bet
-		self.total = total
+class Central():
+	def __init__(self,pot,Community_Cards):
+		self.pot = pot
+		self.Com_Cards = Community_Cards
 
 def Win(centre,winner_bet,winner,bets):
 	centre.visible = False
 	for i in bets:
 		if i[1] == winner_bet:
 			i[1].visible = True
-			i[1].animate_position((i[0]),duration=1,curve=curve.linear)
-		else:
-			i[1].visible = False
+			i[1].animate_position((centre.world_position),duration=0,curve=curve.linear)
 			i[1].animate_position((i[0]),duration=1,curve=curve.linear)
 	bets = []
 
+def change_vis(chip,vis=False):
+	if vis == False:
+		chip.visible = False
+	else:
+		chip.visible = True
+
 def Bet(bet_chip,centre,bets):
 	initial_pos = bet_chip.world_position
-	bet_chip.visible = True
 	bets.append([bet_chip.world_position,bet_chip])
-	bet_chip.animate_position((centre.world_position),duration=1,curve=curve.linear)
-	if bet_chip.world_position == centre.world_position:
-		centre.visible = True
-		bet_chip.visible = False
-	bet_chip.set_position(initial_pos)
+	s = Sequence(Func(bet_chip.animate_position,duration=1,value=centre.world_position,curve=curve.linear),
+				1,Func(change_vis,chip=bet_chip),Func(change_vis,chip=centre,vis=True),
+				Func(bet_chip.animate_position,duration=1,value=initial_pos,curve=curve.linear),
+				1,Func(change_vis,chip=bet_chip,vis=True))
+	s.start()
 
 global bets
 bets = []
-pot = pot()
+Central = Central(pot(),Community_Cards())
 
-#table = Entity(parent=scene,model="circle",texture="",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
+#table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
 #table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
 
 Player1 = player(money(),Hand())
@@ -93,15 +101,6 @@ player7_chips = duplicate(player1_chips,position=(4,-1,-0.1))
 player8_chips = duplicate(player1_chips,position=(2,-2,-0.1))
 
 player1_bet_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
-
-pos = Text(text=f"pos {player1_bet_chips.world_position}",scale = 10,parent = scene, origin=(1,1))
-pos3 = Text(text=f"Cpos {centre_chips.world_position}",scale = 10,parent = scene, origin=(1,0.5))
-pos2 = Text(text=f"vis {player1_bet_chips.visible}",scale = 10,parent = scene, origin=(1,1.5))
-def update():
-	pos.text = f"pos {player1_bet_chips.world_position}"
-	pos2.text = f"vis {player1_bet_chips.visible}"
-	pos3.text = f"Cpos {centre_chips.world_position}"
-
 player2_bet_chips = duplicate(player1_bet_chips,position=(-4,-1,-0.1))
 player3_bet_chips = duplicate(player1_bet_chips,position=(-4,1,-0.1))
 player4_bet_chips = duplicate(player1_bet_chips,position=(-2,2,-0.1))
@@ -109,7 +108,6 @@ player5_bet_chips = duplicate(player1_bet_chips,position=(1,2,-0.1))
 player6_bet_chips = duplicate(player1_bet_chips,position=(4,1,-0.1))
 player7_bet_chips = duplicate(player1_bet_chips,position=(4,-1,-0.1))
 player8_bet_chips = duplicate(player1_bet_chips,position=(2,-2,-0.1))
-
 
 Bet_button = my_button(message="Bet",x=-1,y=-3,scale=(1,0.25))
 Bet_button.on_click = lambda: Bet(player1_bet_chips,centre_chips,bets)
@@ -150,5 +148,11 @@ Bet8_button = my_button(message="p8Bet",x=3,y=-3.5,scale=(1,0.25))
 Bet8_button.on_click =lambda: Bet(player8_bet_chips,centre_chips,bets)
 Win8_button = my_button(message="p8Win",x=3,y=-3,scale=(1,0.25))
 Win8_button.on_click =lambda: Win(centre_chips,player8_bet_chips,player8_chips,bets)
+
+P1_money = Text(text=f"p1 money:{Player1.money.money}",scale = 15,parent = scene, origin=(0,7),color = Color(0,0,0,0.8))
+
+def update():
+	P1_money.text = f"p1 money:{Player1.money.money}"
+
 
 app.run()
