@@ -55,20 +55,22 @@ def Win(centre,winner_bet,winner,bets):
 			i[1].animate_position((i[0]),duration=1,curve=curve.linear)
 	bets = []
 
-def Bet(bet_chip, centre,bets):
+def Bet(bet_chip,centre,bets):
+	initial_pos = bet_chip.world_position
 	bet_chip.visible = True
-	bets.append([bet_chip.position,bet_chip])
+	bets.append([bet_chip.world_position,bet_chip])
 	bet_chip.animate_position((centre.world_position),duration=1,curve=curve.linear)
 	if bet_chip.world_position == centre.world_position:
 		centre.visible = True
 		bet_chip.visible = False
+	bet_chip.set_position(initial_pos)
 
 global bets
 bets = []
 pot = pot()
 
-table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
-table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
+#table = Entity(parent=scene,model="circle",texture="",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
+#table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
 
 Player1 = player(money(),Hand())
 Player2 = player(money(),Hand())
@@ -78,6 +80,8 @@ Player5 = player(money(),Hand())
 Player6 = player(money(),Hand())
 Player7 = player(money(),Hand())
 Player8 = player(money(),Hand())
+
+centre_chips = Entity(parent=scene,model="quad",position=(0,0,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png",visible=False)
 
 player1_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
 player2_chips = duplicate(player1_chips,position=(-4,-1,-0.1))
@@ -89,6 +93,15 @@ player7_chips = duplicate(player1_chips,position=(4,-1,-0.1))
 player8_chips = duplicate(player1_chips,position=(2,-2,-0.1))
 
 player1_bet_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
+
+pos = Text(text=f"pos {player1_bet_chips.world_position}",scale = 10,parent = scene, origin=(1,1))
+pos3 = Text(text=f"Cpos {centre_chips.world_position}",scale = 10,parent = scene, origin=(1,0.5))
+pos2 = Text(text=f"vis {player1_bet_chips.visible}",scale = 10,parent = scene, origin=(1,1.5))
+def update():
+	pos.text = f"pos {player1_bet_chips.world_position}"
+	pos2.text = f"vis {player1_bet_chips.visible}"
+	pos3.text = f"Cpos {centre_chips.world_position}"
+
 player2_bet_chips = duplicate(player1_bet_chips,position=(-4,-1,-0.1))
 player3_bet_chips = duplicate(player1_bet_chips,position=(-4,1,-0.1))
 player4_bet_chips = duplicate(player1_bet_chips,position=(-2,2,-0.1))
@@ -97,7 +110,6 @@ player6_bet_chips = duplicate(player1_bet_chips,position=(4,1,-0.1))
 player7_bet_chips = duplicate(player1_bet_chips,position=(4,-1,-0.1))
 player8_bet_chips = duplicate(player1_bet_chips,position=(2,-2,-0.1))
 
-centre_chips = Entity(parent=scene,model="quad",position=(0,0,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png",visible=False)
 
 Bet_button = my_button(message="Bet",x=-1,y=-3,scale=(1,0.25))
 Bet_button.on_click = lambda: Bet(player1_bet_chips,centre_chips,bets)
