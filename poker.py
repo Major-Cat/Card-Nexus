@@ -35,7 +35,7 @@ class money():
 
 
 class player():
-	def __init__(money,Hand):
+	def __init__(self,money,Hand):
 		self.money = money
 		self.Hand = Hand
 
