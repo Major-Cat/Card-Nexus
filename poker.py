@@ -29,8 +29,15 @@ class Hand():
 		self.Cards.append(l.draw())
 
 class money():
-	def __init__(self,money=100):
+	def __init__(self,money=100,bet=0):
 		self.money = money
+		self.bet = bet
+
+
+class player():
+	def __init__(money,Hand):
+		self.money = money
+		self.Hand = Hand
 
 class pot():
 	def __init__(self,bet=0,total=0):
@@ -58,9 +65,19 @@ def Bet(bet_chip, centre,bets):
 
 global bets
 bets = []
+pot = pot()
 
 table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
 table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
+
+Player1 = player(money(),Hand())
+Player2 = player(money(),Hand())
+Player3 = player(money(),Hand())
+Player4 = player(money(),Hand())
+Player5 = player(money(),Hand())
+Player6 = player(money(),Hand())
+Player7 = player(money(),Hand())
+Player8 = player(money(),Hand())
 
 player1_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
 player2_chips = duplicate(player1_chips,position=(-4,-1,-0.1))
