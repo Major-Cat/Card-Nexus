@@ -28,6 +28,14 @@ class Hand():
 		self.Cards.append(l.draw())
 		self.Cards.append(l.draw())
 
+class money():
+	def __init__(self,money=100):
+		self.money = money
+
+class pot():
+	def __init__(self,bet=0,total=0):
+		self.bet = bet
+		self.total = total
 
 def Win(centre,winner_bet,winner,bets):
 	centre.visible = False
@@ -104,9 +112,9 @@ Bet6_button.on_click =lambda: Bet(player6_bet_chips,centre_chips,bets)
 Win6_button = my_button(message="p6Win",x=6,y=1.5,scale=(1,0.25))
 Win6_button.on_click =lambda: Win(centre_chips,player6_bet_chips,player6_chips,bets)
 
-Bet7_button = my_button(message="p7Bet",x=6,y=-1,scale=(1,0.25))
+Bet7_button = my_button(message="p7Bet",x=6,y=-1.5,scale=(1,0.25))
 Bet7_button.on_click =lambda: Bet(player7_bet_chips,centre_chips,bets)
-Win7_button = my_button(message="p7Win",x=6,y=-1.5,scale=(1,0.25))
+Win7_button = my_button(message="p7Win",x=6,y=-1,scale=(1,0.25))
 Win7_button.on_click =lambda: Win(centre_chips,player7_bet_chips,player7_chips,bets)
 
 Bet8_button = my_button(message="p8Bet",x=3,y=-3.5,scale=(1,0.25))
