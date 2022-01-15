@@ -1,14 +1,14 @@
 import cards
 from ursina import *
-
+Debug = True
 l = cards.Deck() # cards.deck here will be replaced with the object that is the deck in poker.py (this is temporary)
 
 app = Ursina()
 window.fps_counter.enabled = False
 
 class my_button(Button):
-	def __init__(self,x=3.5,y=0,message="",scale = (2,0.5)):
-		super().__init__(parent = scene, text = message, color = color.light_gray, texture = "white_cube", highlight_color = color.white, pressed_color = color.dark_gray, position = (x,y), scale = scale)
+	def __init__(self,x=3.5,y=0,message="",scale = (2,0.5),visible=True):
+		super().__init__(parent = scene, text = message, color = color.light_gray, texture = "white_cube", highlight_color = color.white, pressed_color = color.dark_gray, position = (x,y), scale = scale,visible=visible)
 
 class Community_Cards():
 	def __init__(self,Cards=[]):
@@ -38,6 +38,11 @@ class money():
 		self.money = money
 		self.bet = bet
 
+	def Bet(self,pot):
+		if self.bet == pot.bet:
+			pass # check/bet/fold
+		elif self.bet < pot.bet:
+			pass # call/raise/fold
 
 class player():
 	def __init__(self,money,Hand):
@@ -109,47 +114,54 @@ player6_bet_chips = duplicate(player1_bet_chips,position=(4,1,-0.1))
 player7_bet_chips = duplicate(player1_bet_chips,position=(4,-1,-0.1))
 player8_bet_chips = duplicate(player1_bet_chips,position=(2,-2,-0.1))
 
-Bet_button = my_button(message="Bet",x=-1,y=-3,scale=(1,0.25))
-Bet_button.on_click = lambda: Bet(player1_bet_chips,centre_chips,bets)
-Win_button = my_button(message="Win",x=-2,y=-3,scale=(1,0.25))
-Win_button.on_click = lambda: Win(centre_chips,player1_bet_chips,player1_chips,bets)
+#if Debug == False:
+Fold_Button = my_button(message="Fold",x=-3,y=-3.5,scale=(1.5,0.65))
+Call_Button = my_button(message="Call",x=-6,y=-3.5,scale=(1.5,0.65))
+Check_Button = my_button(message="Check",x=-6,y=-3.5,scale=(1.5,0.65),visible=False)
+Raise_Button = my_button(message="Raise",x=-4.5,y=-3.5,scale=(1.5,0.65))
+Debug = False
+if Debug == True:
+	Bet_button = my_button(message="Bet",x=-1,y=-3,scale=(1,0.25))
+	Bet_button.on_click = lambda: Bet(player1_bet_chips,centre_chips,bets)
+	Win_button = my_button(message="Win",x=-2,y=-3,scale=(1,0.25))
+	Win_button.on_click = lambda: Win(centre_chips,player1_bet_chips,player1_chips,bets)
 
-Bet2_button = my_button(message="p2Bet",x=-5,y=-3,scale=(1,0.25))
-Bet2_button.on_click = lambda: Bet(player2_bet_chips,centre_chips,bets)
-Win2_button = my_button(message="p2Win",x=-5,y=-2.5,scale=(1,0.25))
-Win2_button.on_click = lambda: Win(centre_chips,player2_bet_chips,player2_chips,bets)
+	Bet2_button = my_button(message="p2Bet",x=-5,y=-3,scale=(1,0.25))
+	Bet2_button.on_click = lambda: Bet(player2_bet_chips,centre_chips,bets)
+	Win2_button = my_button(message="p2Win",x=-5,y=-2.5,scale=(1,0.25))
+	Win2_button.on_click = lambda: Win(centre_chips,player2_bet_chips,player2_chips,bets)
 
-Bet3_button = my_button(message="p3Bet",x=-6,y=0.5,scale=(1,0.25))
-Bet3_button.on_click =lambda: Bet(player3_bet_chips,centre_chips,bets)
-Win3_button = my_button(message="p3Win",x=-6,y=1,scale=(1,0.25))
-Win3_button.on_click =lambda: Win(centre_chips,player3_bet_chips,player3_chips,bets)
+	Bet3_button = my_button(message="p3Bet",x=-6,y=0.5,scale=(1,0.25))
+	Bet3_button.on_click =lambda: Bet(player3_bet_chips,centre_chips,bets)
+	Win3_button = my_button(message="p3Win",x=-6,y=1,scale=(1,0.25))
+	Win3_button.on_click =lambda: Win(centre_chips,player3_bet_chips,player3_chips,bets)
 
-Bet4_button = my_button(message="p4Bet",x=-2,y=3,scale=(1,0.25))
-Bet4_button.on_click =lambda: Bet(player4_bet_chips,centre_chips,bets)
-Win4_button = my_button(message="p4Win",x=-2,y=3.5,scale=(1,0.25))
-Win4_button.on_click =lambda: Win(centre_chips,player4_bet_chips,player4_chips,bets)
+	Bet4_button = my_button(message="p4Bet",x=-2,y=3,scale=(1,0.25))
+	Bet4_button.on_click =lambda: Bet(player4_bet_chips,centre_chips,bets)
+	Win4_button = my_button(message="p4Win",x=-2,y=3.5,scale=(1,0.25))
+	Win4_button.on_click =lambda: Win(centre_chips,player4_bet_chips,player4_chips,bets)
 
-Bet5_button = my_button(message="p5Bet",x=2,y=3,scale=(1,0.25))
-Bet5_button.on_click =lambda: Bet(player5_bet_chips,centre_chips,bets)
-Win5_button = my_button(message="p5Win",x=2,y=3.5,scale=(1,0.25))
-Win5_button.on_click =lambda: Win(centre_chips,player5_bet_chips,player5_chips,bets)
+	Bet5_button = my_button(message="p5Bet",x=2,y=3,scale=(1,0.25))
+	Bet5_button.on_click =lambda: Bet(player5_bet_chips,centre_chips,bets)
+	Win5_button = my_button(message="p5Win",x=2,y=3.5,scale=(1,0.25))
+	Win5_button.on_click =lambda: Win(centre_chips,player5_bet_chips,player5_chips,bets)
 
-Bet6_button = my_button(message="p6Bet",x=6,y=1,scale=(1,0.25))
-Bet6_button.on_click =lambda: Bet(player6_bet_chips,centre_chips,bets)
-Win6_button = my_button(message="p6Win",x=6,y=1.5,scale=(1,0.25))
-Win6_button.on_click =lambda: Win(centre_chips,player6_bet_chips,player6_chips,bets)
+	Bet6_button = my_button(message="p6Bet",x=6,y=1,scale=(1,0.25))
+	Bet6_button.on_click =lambda: Bet(player6_bet_chips,centre_chips,bets)
+	Win6_button = my_button(message="p6Win",x=6,y=1.5,scale=(1,0.25))
+	Win6_button.on_click =lambda: Win(centre_chips,player6_bet_chips,player6_chips,bets)
 
-Bet7_button = my_button(message="p7Bet",x=6,y=-1.5,scale=(1,0.25))
-Bet7_button.on_click =lambda: Bet(player7_bet_chips,centre_chips,bets)
-Win7_button = my_button(message="p7Win",x=6,y=-1,scale=(1,0.25))
-Win7_button.on_click =lambda: Win(centre_chips,player7_bet_chips,player7_chips,bets)
+	Bet7_button = my_button(message="p7Bet",x=6,y=-1.5,scale=(1,0.25))
+	Bet7_button.on_click =lambda: Bet(player7_bet_chips,centre_chips,bets)
+	Win7_button = my_button(message="p7Win",x=6,y=-1,scale=(1,0.25))
+	Win7_button.on_click =lambda: Win(centre_chips,player7_bet_chips,player7_chips,bets)
 
-Bet8_button = my_button(message="p8Bet",x=3,y=-3.5,scale=(1,0.25))
-Bet8_button.on_click =lambda: Bet(player8_bet_chips,centre_chips,bets)
-Win8_button = my_button(message="p8Win",x=3,y=-3,scale=(1,0.25))
-Win8_button.on_click =lambda: Win(centre_chips,player8_bet_chips,player8_chips,bets)
+	Bet8_button = my_button(message="p8Bet",x=3,y=-3.5,scale=(1,0.25))
+	Bet8_button.on_click =lambda: Bet(player8_bet_chips,centre_chips,bets)
+	Win8_button = my_button(message="p8Win",x=3,y=-3,scale=(1,0.25))
+	Win8_button.on_click =lambda: Win(centre_chips,player8_bet_chips,player8_chips,bets)
 
-P1_money = Text(text=f"p1 money:{Player1.money.money}",scale = 15,parent = scene, origin=(0,7),color = Color(0,0,0,0.8))
+P1_money = Text(text=f"p1 money:{Player1.money.money}",scale = 15,parent = scene, origin=(-1,9),color = Color(0,0,0,0.8))
 
 def update():
 	P1_money.text = f"p1 money:{Player1.money.money}"
