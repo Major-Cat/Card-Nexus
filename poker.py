@@ -41,8 +41,11 @@ def chip_vis(chip):
 	else:
 		chip.visible = False
 
-def Win(centre,winner,*bets)
-		
+def Win(centre,winner,*bets):
+	chip_vis(centre)
+	for i in bets:
+		i.visible = True
+		chip_reset(i,winner)
 
 def Bet(bet_chips, centre):
 	chip_reset(bet_chips,centre)
@@ -55,33 +58,34 @@ table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color
 table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
 
 player1_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
-player2_chips = duplicate(player1_chips,position=(1,2,-0.1))
+player2_chips = duplicate(player1_chips,position=(-4,-1,-0.1))
+player3_chips = duplicate(player1_chips,position=(-4,1,-0.1))
+player4_chips = duplicate(player1_chips,position=(-2,2,-0.1))
+player5_chips = duplicate(player1_chips,position=(1,2,-0.1))
+player6_chips = duplicate(player1_chips,position=(4,1,-0.1))
+player7_chips = duplicate(player1_chips,position=(4,-1,-0.1))
+player8_chips = duplicate(player1_chips,position=(2,-2,-0.1))
 
 player1_bet_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
-player2_bet_chips= duplicate(player1_bet_chips,position=(1,2,-0.1))
+player2_bet_chips= duplicate(player1_bet_chips,position=(-4,-1,-0.1))
+player3_bet_chips= duplicate(player1_bet_chips,position=(-4,1,-0.1))
+player4_bet_chips= duplicate(player1_bet_chips,position=(-2,2,-0.1))
+player5_bet_chips= duplicate(player1_bet_chips,position=(1,2,-0.1))
+player6_bet_chips= duplicate(player1_bet_chips,position=(4,1,-0.1))
+player7_bet_chips= duplicate(player1_bet_chips,position=(4,-1,-0.1))
+player8_bet_chips= duplicate(player1_bet_chips,position=(2,-2,-0.1))
 
 centre_chips = Entity(parent=scene,model="quad",position=(0,0,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png",visible=False)
 
 Bet_button = my_button(message="Bet",x=-3,y=-3)
 Bet_button.on_click =lambda: Bet(player1_bet_chips,centre_chips)
 Win_button = my_button(message="Win",x=-5,y=-3)
-Win_button.on_click =lambda: chip_reset(player1_bet_chips,player1_chips)
+Win_button.on_click =lambda: Win(centre_chips,player1_chips,player1_bet_chips)
 
 Bet2_button = my_button(message="enemy Bet",x=-3,y=3)
 Bet2_button.on_click =lambda: Bet(player2_bet_chips,centre_chips)
 Win2_button = my_button(message="enemy Win",x=-5,y=3)
-Win2_button.on_click =lambda: chip_reset(player2_bet_chips,player2_chips)
+Win2_button.on_click =lambda: Win(centre_chips,player2_chips,player2_bet_chips)
 
-
-#disable_button = my_button(message="invis_bet",x=-3,y=3)
-#disable_button.on_click =lambda: chip_vis(player1_bet_chips)
-#disable_button = my_button(message="invis_centre",x=0,y=3)
-#disable_button.on_click =lambda: chip_vis(centre_chips)
-#reset_button = my_button(message="reset",x=-6,y=3)
-#reset_button.on_click = lambda: chip_reset(player1_bet_chips,player1_chips)
-
-#def update():
-#	pos.text = f"hello {test_chip_move.world_position}"
-#	pos2.text = f"hi {test_chip_move.x}"
 
 app.run()
