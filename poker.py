@@ -29,12 +29,6 @@ class Hand():
 		self.Cards.append(l.draw())
 
 
-
-def chip_reset(chip,dest_chip):
-	dest = dest_chip.world_position
-	if not chip.world_position == dest:
-		chip.animate_position((dest),duration=1,curve=curve.linear)
-
 def Win(centre,winner_bet,winner,bets):
 	centre.visible = False
 	for i in bets:
