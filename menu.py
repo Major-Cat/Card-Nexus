@@ -12,7 +12,7 @@ def run(app):
 	def new_game():
 		scene.clear()
 		import poker
-		poker.run(app)
+		#poker.run(app)
 
 	Text.size = 0.02
 	Text.default_resolution = 1080 * 0.05#
