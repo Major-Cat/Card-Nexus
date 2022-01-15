@@ -45,9 +45,10 @@ class money():
 			pass # call/raise/fold
 
 class player():
-	def __init__(self,money,Hand):
+	def __init__(self,money,Hand,human=False):
 		self.money = money
 		self.Hand = Hand
+		self.human = human
 
 class Central():
 	def __init__(self,pot,Community_Cards):
@@ -85,7 +86,7 @@ Central = Central(pot(),Community_Cards())
 #table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
 #table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
 
-Player1 = player(money(),Hand())
+Player1 = player(money(),Hand(),True)
 Player2 = player(money(),Hand())
 Player3 = player(money(),Hand())
 Player4 = player(money(),Hand())
