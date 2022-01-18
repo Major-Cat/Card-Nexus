@@ -3,7 +3,7 @@ from ursina import *
 Debug = True
 l = cards.Deck() # cards.deck here will be replaced with the object that is the deck in poker.py (this is temporary)
 
-app = Ursina()
+app = Ursina() # FSR: I think this is causing the errors (multiple showcase exception) so remember to remove later.
 window.fps_counter.enabled = False
 
 class my_button(Button):
@@ -59,7 +59,7 @@ class Central():
 		self.pot = pot
 		self.Com_Cards = Community_Cards
 
-def Win(centre,winner_bet,winner,bets):
+def Win(centre,winner_bet,winner,bets): # FSR: Animation functions should have a name that makes it obvious that they just do animations.
 	centre.visible = False
 	for i in bets:
 		if i[1] == winner_bet:
@@ -68,13 +68,13 @@ def Win(centre,winner_bet,winner,bets):
 			i[1].animate_position((i[0]),duration=1,curve=curve.linear)
 	bets = []
 
-def change_vis(chip,vis=False):
+def change_vis(chip,vis=False): # FSR: Animation functions should have a name that makes it obvious that they just do animations.
 	if vis == False:
 		chip.visible = False
 	else:
 		chip.visible = True
 
-def Bet(bet_chip,centre,bets):
+def Bet(bet_chip,centre,bets): # FSR: Animation functions should have a name that makes it obvious that they just do animations.
 	initial_pos = bet_chip.world_position
 	bets.append([bet_chip.world_position,bet_chip])
 	s = Sequence(Func(bet_chip.animate_position,duration=1,value=centre.world_position,curve=curve.linear), 1,Func(change_vis,chip=bet_chip),Func(change_vis,chip=centre,vis=True),Func(bet_chip.animate_position,duration=1,value=initial_pos,curve=curve.linear),1,Func(change_vis,chip=bet_chip,vis=True))
@@ -84,8 +84,8 @@ global bets
 bets = []
 Central = Central(pot(),Community_Cards())
 
-#table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
-#table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
+table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
+table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
 
 Player1 = player(money(),Hand(),True)
 Player2 = player(money(),Hand())
