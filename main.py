@@ -36,9 +36,9 @@ def sign_up_function():
 	b = bytes(password, 'utf-8')
 	password = sha256(b).hexdigest()
 	if not(username in datafile):
-		datafile[username] = str(password)
+		datafile[username] = str(password) # FSR: Probably needs an else statement here which makes some text appear saying "Username is already registered"
 	with open("Storage/account.json","w") as f:
-		json.dump(datafile, f, indent=4)
+		json.dump(datafile, f, indent=4) # FSR: Should probably have some text appear saying "Registration complete"
 
 def log_in_function():
 	username=log_name.text
@@ -54,7 +54,7 @@ def log_in_function():
 			scene.clear()
 			menu.run(app)
 	except KeyError:
-		pass
+		pass # FSR: Should make some <red> text become visible e.g. "<red> Username or Password Incorrect <default>"
 
 sign_up_button = my_button(message="sign up")
 log_in_button = my_button(x=-3.5,message = "log in")
