@@ -34,7 +34,7 @@ class Deck:
 
 	def draw(self):	
 		if len(self.Cards) == 0:
-			self.cards(self)
+			self.cards(self) # FSR: I feel like the deck should be shuffled on the next line after this.
 		drawn = self.Cards[0]
 		self.Cards.remove(drawn)
 		return drawn
