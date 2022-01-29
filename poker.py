@@ -86,15 +86,23 @@ def Bet(bet_chip,centre,bets,player,amount,call=False):
 	bets.append([bet_chip.world_position,bet_chip])
 	s = Sequence(Func(bet_chip.animate_position,duration=1,value=centre.world_position,curve=curve.linear), 1,Func(change_vis,entity=bet_chip),Func(change_vis,entity=centre,vis=True),Func(bet_chip.animate_position,duration=1,value=initial_pos,curve=curve.linear),1,Func(change_vis,entity=bet_chip,vis=True))
 	s.start()
-	player.money.bet += amount
-	player.money.money -= amount
-	central.pot.bet = amount
-	central.pot.total += amount
-	if call == True:
-		global call_amount
-		call_amount = central.pot.bet - player.money.bet
-		if call_amount < 0:
-			call_amount = 0
+	if amount < player.money.money:
+		player.money.bet += amount
+		player.money.money -= amount
+		central.pot.bet = amount
+		central.pot.total += amount
+	else:
+		amount = player.money.money
+		player.money.bet += amount
+		player.money.money -= amount
+		central.pot.bet = amount
+		central.pot.total += amount
+
+	#if call == True:
+	global call_amount
+	call_amount = central.pot.bet - player.money.bet
+	if call_amount < 0:
+		call_amount = 0
 
 def Final_Button_func(bet_chip,centre,bets,player,bet_slider,Final_Button):
 	Bet(bet_chip,centre,bets,player,bet_slider.value)
