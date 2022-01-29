@@ -98,7 +98,6 @@ def Bet(bet_chip,centre,bets,player,amount,call=False):
 		central.pot.bet = amount
 		central.pot.total += amount
 
-	#if call == True:
 	global call_amount
 	call_amount = central.pot.bet - player.money.bet
 	if call_amount < 0:
