@@ -33,9 +33,9 @@ class Hand():
 		self.Cards.append(l.draw())
 		self.Cards.append(l.draw())
 
-def call(money,pot):
-	change = pot.bet - money.bet
-	money.money -= change
+#def call(money,pot):
+#	change = pot.bet - money.bet
+#	money.money -= change
 
 class money():
 	def __init__(self,money=100,bet=0):
@@ -59,7 +59,7 @@ class Central():
 		self.pot = pot
 		self.Com_Cards = Community_Cards
 
-def Win(centre,winner_bet,winner,bets): # FSR: Animation functions should have a name that makes it obvious that they just do animations.
+def Win(centre,winner_bet,winner,bets,player):
 	centre.visible = False
 	for i in bets:
 		if i[1] == winner_bet:
@@ -68,13 +68,13 @@ def Win(centre,winner_bet,winner,bets): # FSR: Animation functions should have a
 			i[1].animate_position((i[0]),duration=1,curve=curve.linear)
 	bets = []
 
-def change_vis(chip,vis=False): # FSR: Animation functions should have a name that makes it obvious that they just do animations.
+def change_vis(chip,vis=False):
 	if vis == False:
 		chip.visible = False
 	else:
 		chip.visible = True
 
-def Bet(bet_chip,centre,bets): # FSR: Animation functions should have a name that makes it obvious that they just do animations.
+def Bet(bet_chip,centre,bets,player): 
 	initial_pos = bet_chip.world_position
 	bets.append([bet_chip.world_position,bet_chip])
 	s = Sequence(Func(bet_chip.animate_position,duration=1,value=centre.world_position,curve=curve.linear), 1,Func(change_vis,chip=bet_chip),Func(change_vis,chip=centre,vis=True),Func(bet_chip.animate_position,duration=1,value=initial_pos,curve=curve.linear),1,Func(change_vis,chip=bet_chip,vis=True))
@@ -82,7 +82,8 @@ def Bet(bet_chip,centre,bets): # FSR: Animation functions should have a name tha
 
 global bets
 bets = []
-Central = Central(pot(),Community_Cards())
+global central	#temporary fix
+central = Central(pot(),Community_Cards())
 
 table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
 table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
@@ -121,48 +122,48 @@ player8_bet_chips = duplicate(player1_bet_chips,position=(2,-2,-0.1))
 Fold_Button = my_button(message="Fold",x=-2,y=-3.5,scale=(1.5,0.65))
 Call_Button = my_button(message="Call/Check",x=-6,y=-3.5,scale=(2.5,0.65))
 Raise_Button = my_button(message="Raise",x=-3.75,y=-3.5,scale=(1.5,0.65))
-#Debug = False
+Debug = False
 
 if Debug == True:
 	Bet_button = my_button(message="Bet",x=-1,y=-3,scale=(1,0.25))
-	Bet_button.on_click = lambda: Bet(player1_bet_chips,centre_chips,bets)
+	Bet_button.on_click = lambda: Bet(player1_bet_chips,centre_chips,bets,Player1)
 	Win_button = my_button(message="Win",x=-2,y=-3,scale=(1,0.25))
-	Win_button.on_click = lambda: Win(centre_chips,player1_bet_chips,player1_chips,bets)
+	Win_button.on_click = lambda: Win(centre_chips,player1_bet_chips,player1_chips,bets,Player1)
 
 	Bet2_button = my_button(message="p2Bet",x=-5,y=-3,scale=(1,0.25))
-	Bet2_button.on_click = lambda: Bet(player2_bet_chips,centre_chips,bets)
+	Bet2_button.on_click = lambda: Bet(player2_bet_chips,centre_chips,bets,Player2)
 	Win2_button = my_button(message="p2Win",x=-5,y=-2.5,scale=(1,0.25))
-	Win2_button.on_click = lambda: Win(centre_chips,player2_bet_chips,player2_chips,bets)
+	Win2_button.on_click = lambda: Win(centre_chips,player2_bet_chips,player2_chips,bets,Player2)
 
 	Bet3_button = my_button(message="p3Bet",x=-6,y=0.5,scale=(1,0.25))
-	Bet3_button.on_click =lambda: Bet(player3_bet_chips,centre_chips,bets)
+	Bet3_button.on_click =lambda: Bet(player3_bet_chips,centre_chips,bets,Player3)
 	Win3_button = my_button(message="p3Win",x=-6,y=1,scale=(1,0.25))
-	Win3_button.on_click =lambda: Win(centre_chips,player3_bet_chips,player3_chips,bets)
+	Win3_button.on_click =lambda: Win(centre_chips,player3_bet_chips,player3_chips,bets,Player3)
 
 	Bet4_button = my_button(message="p4Bet",x=-2,y=3,scale=(1,0.25))
-	Bet4_button.on_click =lambda: Bet(player4_bet_chips,centre_chips,bets)
+	Bet4_button.on_click =lambda: Bet(player4_bet_chips,centre_chips,bets,Player4)
 	Win4_button = my_button(message="p4Win",x=-2,y=3.5,scale=(1,0.25))
-	Win4_button.on_click =lambda: Win(centre_chips,player4_bet_chips,player4_chips,bets)
+	Win4_button.on_click =lambda: Win(centre_chips,player4_bet_chips,player4_chips,bets,Player4)
 
 	Bet5_button = my_button(message="p5Bet",x=2,y=3,scale=(1,0.25))
-	Bet5_button.on_click =lambda: Bet(player5_bet_chips,centre_chips,bets)
+	Bet5_button.on_click =lambda: Bet(player5_bet_chips,centre_chips,bets,Player5)
 	Win5_button = my_button(message="p5Win",x=2,y=3.5,scale=(1,0.25))
-	Win5_button.on_click =lambda: Win(centre_chips,player5_bet_chips,player5_chips,bets)
+	Win5_button.on_click =lambda: Win(centre_chips,player5_bet_chips,player5_chips,bets,Player5)
 
 	Bet6_button = my_button(message="p6Bet",x=6,y=1,scale=(1,0.25))
-	Bet6_button.on_click =lambda: Bet(player6_bet_chips,centre_chips,bets)
+	Bet6_button.on_click =lambda: Bet(player6_bet_chips,centre_chips,bets,Player6)
 	Win6_button = my_button(message="p6Win",x=6,y=1.5,scale=(1,0.25))
-	Win6_button.on_click =lambda: Win(centre_chips,player6_bet_chips,player6_chips,bets)
+	Win6_button.on_click =lambda: Win(centre_chips,player6_bet_chips,player6_chips,bets,Player6)
 
 	Bet7_button = my_button(message="p7Bet",x=6,y=-1.5,scale=(1,0.25))
-	Bet7_button.on_click =lambda: Bet(player7_bet_chips,centre_chips,bets)
+	Bet7_button.on_click =lambda: Bet(player7_bet_chips,centre_chips,bets,Player7)
 	Win7_button = my_button(message="p7Win",x=6,y=-1,scale=(1,0.25))
-	Win7_button.on_click =lambda: Win(centre_chips,player7_bet_chips,player7_chips,bets)
+	Win7_button.on_click =lambda: Win(centre_chips,player7_bet_chips,player7_chips,bets,Player7)
 
 	Bet8_button = my_button(message="p8Bet",x=3,y=-3.5,scale=(1,0.25))
-	Bet8_button.on_click =lambda: Bet(player8_bet_chips,centre_chips,bets)
+	Bet8_button.on_click =lambda: Bet(player8_bet_chips,centre_chips,bets,Player8)
 	Win8_button = my_button(message="p8Win",x=3,y=-3,scale=(1,0.25))
-	Win8_button.on_click =lambda: Win(centre_chips,player8_bet_chips,player8_chips,bets)
+	Win8_button.on_click =lambda: Win(centre_chips,player8_bet_chips,player8_chips,bets,Player8)
 
 P1_money = Text(text=f"p1 money:{Player1.money.money}",scale = 15,parent = scene, origin=(-1,9),color = Color(0,0,0,0.8))
 
