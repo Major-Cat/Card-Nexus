@@ -7,8 +7,8 @@ app = Ursina() # FSR: I think this is causing the errors (multiple showcase exce
 window.fps_counter.enabled = False
 
 class my_button(Button):
-	def __init__(self,x=3.5,y=0,message="",scale = (2,0.5),visible=True):
-		super().__init__(parent = scene, text = message, color = color.light_gray, texture = "white_cube", highlight_color = color.white, pressed_color = color.dark_gray, position = (x,y), scale = scale,visible=visible)
+	def __init__(self,x=3.5,y=0,message="",scale = (2,0.5),enabled=True):
+		super().__init__(parent = scene, text = message, color = color.light_gray, texture = "white_cube", highlight_color = color.white, pressed_color = color.dark_gray, position = (x,y), scale = scale,enabled=enabled)
 
 class Community_Cards():
 	def __init__(self,Cards=[]):
@@ -74,13 +74,14 @@ def change_vis(entity,vis=False):
 	else:
 		entity.visible = True
 
-def change_enable(entity):
-	if entity.enabled == False:
-		entity.enabled = True
-	else:
-		entity.enabled = False
+def change_enable(*entities):
+	for i in entities:
+		if i.enabled == False:
+			i.enabled = True
+		else:
+			i.enabled = False
 
-def Bet(bet_chip,centre,bets,player,amount): 
+def Bet(bet_chip,centre,bets,player,amount,call=False): 
 	initial_pos = bet_chip.world_position
 	bets.append([bet_chip.world_position,bet_chip])
 	s = Sequence(Func(bet_chip.animate_position,duration=1,value=centre.world_position,curve=curve.linear), 1,Func(change_vis,entity=bet_chip),Func(change_vis,entity=centre,vis=True),Func(bet_chip.animate_position,duration=1,value=initial_pos,curve=curve.linear),1,Func(change_vis,entity=bet_chip,vis=True))
@@ -89,11 +90,19 @@ def Bet(bet_chip,centre,bets,player,amount):
 	player.money.money -= amount
 	central.pot.bet = amount
 	central.pot.total += amount
-	return central.pot.bet - player.money.bet
+	if call == True:
+		global call_amount
+		call_amount = central.pot.bet - player.money.bet
+		if call_amount < 0:
+			call_amount = 0
 
-global bets
+def Final_Button_func(bet_chip,centre,bets,player,bet_slider,Final_Button):
+	Bet(bet_chip,centre,bets,player,bet_slider.value)
+	bet_slider.max = player.money.money
+	bet_slider.value = bet_slider.min
+	change_enable(bet_slider,Final_Button)
+
 bets = []
-global central	#temporary fix
 central = Central(pot(),Community_Cards())
 central.pot.bet = 10	#testing
 central.pot.total = 10	#testing
@@ -132,15 +141,15 @@ player8_bet_chips = duplicate(player1_bet_chips,position=(2,-2,-0.1))
 
 Fold_Button = my_button(message="Fold",x=-2,y=-3.5,scale=(1.5,0.65))
 
-global call_amount
 call_amount = central.pot.bet - Player1.money.bet
 Call_Button = my_button(message="Call/Check",x=-6,y=-3.5,scale=(2.5,0.65))
-Call_Button.on_click = lambda: Bet(player1_bet_chips,centre_chips,bets,Player1,call_amount)
+Call_Button.on_click = lambda: Bet(player1_bet_chips,centre_chips,bets,Player1,call_amount,True)
 
-
-bet_slider = Slider(x=-.7,y=-.35,enabled=False)
+bet_slider = Slider(x=-.7,y=-.35,enabled=False,min = call_amount + 1, max = Player1.money.money,step=1)
+Final_Button = my_button(message="confirm",x=-5.5,y=-2,scale=(1.5,0.65),enabled=False)
 Raise_Button = my_button(message="Raise",x=-3.75,y=-3.5,scale=(1.5,0.65))
-Raise_Button.on_click = lambda: change_enable(bet_slider)
+Raise_Button.on_click = lambda: change_enable(bet_slider,Final_Button)
+Final_Button.on_click = lambda: Final_Button_func(player1_bet_chips,centre_chips,bets,Player1,bet_slider,Final_Button)
 
 Debug = False
 
