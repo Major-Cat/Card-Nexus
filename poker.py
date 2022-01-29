@@ -68,22 +68,35 @@ def Win(centre,winner_bet,winner,bets,player):
 			i[1].animate_position((i[0]),duration=1,curve=curve.linear)
 	bets = []
 
-def change_vis(chip,vis=False):
+def change_vis(entity,vis=False):
 	if vis == False:
-		chip.visible = False
+		entity.visible = False
 	else:
-		chip.visible = True
+		entity.visible = True
 
-def Bet(bet_chip,centre,bets,player): 
+def change_enable(entity):
+	if entity.enabled == False:
+		entity.enabled = True
+	else:
+		entity.enabled = False
+
+def Bet(bet_chip,centre,bets,player,amount): 
 	initial_pos = bet_chip.world_position
 	bets.append([bet_chip.world_position,bet_chip])
-	s = Sequence(Func(bet_chip.animate_position,duration=1,value=centre.world_position,curve=curve.linear), 1,Func(change_vis,chip=bet_chip),Func(change_vis,chip=centre,vis=True),Func(bet_chip.animate_position,duration=1,value=initial_pos,curve=curve.linear),1,Func(change_vis,chip=bet_chip,vis=True))
+	s = Sequence(Func(bet_chip.animate_position,duration=1,value=centre.world_position,curve=curve.linear), 1,Func(change_vis,entity=bet_chip),Func(change_vis,entity=centre,vis=True),Func(bet_chip.animate_position,duration=1,value=initial_pos,curve=curve.linear),1,Func(change_vis,entity=bet_chip,vis=True))
 	s.start()
+	player.money.bet += amount
+	player.money.money -= amount
+	central.pot.bet = amount
+	central.pot.total += amount
+	return central.pot.bet - player.money.bet
 
 global bets
 bets = []
 global central	#temporary fix
 central = Central(pot(),Community_Cards())
+central.pot.bet = 10	#testing
+central.pot.total = 10	#testing
 
 table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
 table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
@@ -117,11 +130,18 @@ player6_bet_chips = duplicate(player1_bet_chips,position=(4,1,-0.1))
 player7_bet_chips = duplicate(player1_bet_chips,position=(4,-1,-0.1))
 player8_bet_chips = duplicate(player1_bet_chips,position=(2,-2,-0.1))
 
-#if Debug == False:
-
 Fold_Button = my_button(message="Fold",x=-2,y=-3.5,scale=(1.5,0.65))
+
+global call_amount
+call_amount = central.pot.bet - Player1.money.bet
 Call_Button = my_button(message="Call/Check",x=-6,y=-3.5,scale=(2.5,0.65))
+Call_Button.on_click = lambda: Bet(player1_bet_chips,centre_chips,bets,Player1,call_amount)
+
+
+bet_slider = Slider(x=-.7,y=-.35,enabled=False)
 Raise_Button = my_button(message="Raise",x=-3.75,y=-3.5,scale=(1.5,0.65))
+Raise_Button.on_click = lambda: change_enable(bet_slider)
+
 Debug = False
 
 if Debug == True:
