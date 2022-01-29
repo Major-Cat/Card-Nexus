@@ -3,7 +3,7 @@ import json
 
 
 class my_button(Button):
-	def __init__(self,x=3.5,y=0,message="",width = 2):
+	def __init__(self,x=0,y=0,message="",width = 2):
 		super().__init__(parent = scene, text = message, color = color.light_gray, texture = "white_cube", highlight_color = color.white, pressed_color = color.dark_gray, position = (x,y), scale = (width,0.5))
 
 

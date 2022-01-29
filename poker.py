@@ -121,7 +121,7 @@ player8_bet_chips = duplicate(player1_bet_chips,position=(2,-2,-0.1))
 Fold_Button = my_button(message="Fold",x=-2,y=-3.5,scale=(1.5,0.65))
 Call_Button = my_button(message="Call/Check",x=-6,y=-3.5,scale=(2.5,0.65))
 Raise_Button = my_button(message="Raise",x=-3.75,y=-3.5,scale=(1.5,0.65))
-Debug = False
+#Debug = False
 
 if Debug == True:
 	Bet_button = my_button(message="Bet",x=-1,y=-3,scale=(1,0.25))

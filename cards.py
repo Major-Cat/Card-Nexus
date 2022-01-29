@@ -8,7 +8,7 @@ class Card:
 		self.make_face()
 
 	def make_face(self):
-		if self.value == 1: self.face = "A"
+		if self.value == 14: self.face = "A"
 		elif self.value == 11: self.face = "J"
 		elif self.value == 12: self.face = "Q"
 		elif self.value == 13: self.face = "K"
@@ -21,7 +21,7 @@ class Deck:
 				
 	def cards(self):
 		for i in self.suits:
-			for s in range(1,self.no_cards+1):
+			for s in range(2,self.no_cards+2):
 				self.Cards.append(Card(s,i))
 
 	def shuffle(self):
@@ -34,7 +34,8 @@ class Deck:
 
 	def draw(self):	
 		if len(self.Cards) == 0:
-			self.cards(self) # FSR: I feel like the deck should be shuffled on the next line after this.
+			self.cards() # FSR: I feel like the deck should be shuffled on the next line after this.
+			self.shuffle()
 		drawn = self.Cards[0]
 		self.Cards.remove(drawn)
 		return drawn
