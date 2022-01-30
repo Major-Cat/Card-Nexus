@@ -1,6 +1,5 @@
 def bilinear_interpolation(x, y, points):
     '''Interpolate (x,y) from values associated with four points.
-
     The four points are a list of four triplets:  (x, y, value).
     The four points can be in any order.  They should form a rectangle.
 
@@ -22,14 +21,16 @@ def bilinear_interpolation(x, y, points):
     if not x1 <= x <= x2 or not y1 <= y <= y2:
         raise ValueError('(x, y) not within the rectangle')
 
-    return (q11 * (x2 - x) * (y2 - y) +
-            q21 * (x - x1) * (y2 - y) +
-            q12 * (x2 - x) * (y - y1) +
-            q22 * (x - x1) * (y - y1)
-           ) / ((x2 - x1) * (y2 - y1) + 0.0)
+    return (q11 * (x2 - x) * (y2 - y) + q21 * (x - x1) * (y2 - y) + q12 * (x2 - x) * (y - y1) + q22 * (x - x1) * (y - y1)) / ((x2 - x1) * (y2 - y1) + 0.0)
 
-draws = 43
-win_ratio = 0
-print("wins = "+str(draws*(win_ratio/100)))
+draws = 43  #number of times a set of cards has been drawn
+wins = 40    #number of times a set of cards has won in epochs
+win_ratio = (wins/draws) * 100  #percentage chance of the current hand of winning
+#print("wins = "+str(draws*(win_ratio/100)))
 
-print(bilinear_interpolation(draws,win_ratio,[(1,0,20),(1,100,100),(100,0,0),(100,100,100)]))   #   x = times drawn, y = win/lose ratio (percent), q = chance of play
+print(bilinear_interpolation(draws,win_ratio,[(1,0,20.0),(1,100,100.0),(217,0,0.1),(217,100,100.0)]))   #   x = times drawn, y = win/lose ratio (percent), q = chance of play
+#[(1,0,20),(1,100,100),(200,0,0),(200,100,100)] is the dataset
+#(1,0,20) = 1 draw, 0 wins, 20% chance
+#(1,100,100) = 1 draw, 1 win, 100% chance
+#(200,0,0) = 200 draw, 0 win, 0.1% chane
+#(200,100,100) = 200 draw, 200 win, 100% chance

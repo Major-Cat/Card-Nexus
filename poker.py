@@ -114,8 +114,8 @@ central = Central(pot(),Community_Cards())
 central.pot.bet = 10	#testing
 central.pot.total = 10	#testing
 
-table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
-table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
+#table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
+#table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
 
 Player1 = player(money(),Hand(),True)
 Player2 = player(money(),Hand())
@@ -128,7 +128,8 @@ Player8 = player(money(),Hand())
 
 centre_chips = Entity(parent=scene,model="quad",position=(0,0,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png",visible=False)
 
-card_deck = Entity(parent=scene,model="Card",scale=(0.71,1),texture="Cards/Back pngs/red.png",position=(-2,0,-0.1))
+card_deck = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/test_spades_ace.png",scale=(1,0.01,1.4),position=(0,0,-0.1),rotation=(90,0,0))
+
 
 player1_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
 player2_chips = duplicate(player1_chips,position=(-4,-1,-0.1))
@@ -148,7 +149,7 @@ player6_bet_chips = duplicate(player1_bet_chips,position=(4,1,-0.1))
 player7_bet_chips = duplicate(player1_bet_chips,position=(4,-1,-0.1))
 player8_bet_chips = duplicate(player1_bet_chips,position=(2,-2,-0.1))
 
-test_card = Entity(parent=scene,model="quad",scale=(1,1.4),texture="Cards/Front pngs/spades_ace.png",position=(0,0,-0.1))
+test_card = Entity(parent=scene,model="quad",scale=(1,1.4),texture="Cards/Front pngs/spades_ace.png",position=(3,0,-0.1))
 
 Fold_Button = my_button(message="Fold",x=-2,y=-3.5,scale=(1.5,0.65))
 
@@ -209,6 +210,7 @@ P1_money = Text(text=f"p1 money:{Player1.money.money}",scale = 15,parent = scene
 
 def update():
 	P1_money.text = f"p1 money:{Player1.money.money}"
+	card_deck.rotation_y += 1
 
 
 app.run()
