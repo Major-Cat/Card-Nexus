@@ -128,7 +128,7 @@ Player8 = player(money(),Hand())
 
 centre_chips = Entity(parent=scene,model="quad",position=(0,0,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png",visible=False)
 
-card_deck = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/test_spades_ace.png",scale=(1,0.01,1.4),position=(0,0,-0.1),rotation=(270,0,180))
+card_deck = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(1,0.01,1.4),position=(0,0,-0.1),rotation=(270,0,180))
 
 player1_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
 player2_chips = duplicate(player1_chips,position=(-4,-1,-0.1))
