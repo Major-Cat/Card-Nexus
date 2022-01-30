@@ -28,8 +28,8 @@ class pot():
 		self.total = total
 
 class Hand():
-	def __init__(self,Cards=[]):
-		self.Cards = Cards
+	def __init__(self):
+		self.Cards = []
 		self.Cards.append(l.draw())
 		self.Cards.append(l.draw())
 
@@ -49,9 +49,9 @@ class money():
 			pass # call/raise/fold
 
 class player():
-	def __init__(self,money,Hand,human=False):
+	def __init__(self,money,hand,human=False):
 		self.money = money
-		self.Hand = Hand
+		self.hand = hand
 		self.human = human
 
 class Central():
@@ -128,6 +128,8 @@ Player8 = player(money(),Hand())
 
 centre_chips = Entity(parent=scene,model="quad",position=(0,0,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png",visible=False)
 
+card_deck = Entity(parent=scene,model="Card",scale=(0.71,1),texture="Cards/Back pngs/red.png",position=(-2,0,-0.1))
+
 player1_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
 player2_chips = duplicate(player1_chips,position=(-4,-1,-0.1))
 player3_chips = duplicate(player1_chips,position=(-4,1,-0.1))
@@ -145,6 +147,8 @@ player5_bet_chips = duplicate(player1_bet_chips,position=(1,2,-0.1))
 player6_bet_chips = duplicate(player1_bet_chips,position=(4,1,-0.1))
 player7_bet_chips = duplicate(player1_bet_chips,position=(4,-1,-0.1))
 player8_bet_chips = duplicate(player1_bet_chips,position=(2,-2,-0.1))
+
+test_card = Entity(parent=scene,model="quad",scale=(1,1.4),texture="Cards/Front pngs/spades_ace.png",position=(0,0,-0.1))
 
 Fold_Button = my_button(message="Fold",x=-2,y=-3.5,scale=(1.5,0.65))
 
