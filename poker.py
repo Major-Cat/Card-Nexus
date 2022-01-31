@@ -227,16 +227,11 @@ if Debug == True: # Debug mode doesn't work anymore, Bet() missing 'amount' argu
 	Win8_button = my_button(message="p8Win",x=3,y=-3,scale=(1,0.25))
 	Win8_button.on_click =lambda: Win(centre_chips,player8_bet_chips,player8_chips,bets,Player8)
 
-P1_money = Text(text=f"p1 money:{Player1.money.money}",scale = 15,parent = scene, origin=(-2,9),color = Color(0,0,0,0.8))
+UI_frame_bank = Entity(parent=scene,model="quad",position=(6.2,-4,1),scale=(3,0.75),color=color.gray)
+P1_money = Text(text=f"Bank:{Player1.money.money}",scale = 15,parent = scene, origin=(-3.4,10,-1),color = Color(0,0,0,0.8))
 
 def update():
-	P1_money.text = f"p1 money:{Player1.money.money}"
-	#player1_card1.rotation_z += 1
-	#player2_card1.rotation_z += 1 # flip card to reveal
-	#player3_card1.rotation_z += 1
-	#player3_card1.rotation_y += 1
-	#player3_card1.rotation_x -= 1
-	#print(player3_card1.rotation)
+	P1_money.text = f"Bank:{Player1.money.money}"
 	for crd in card_models:
 		crd.rotation_z += 1
 
