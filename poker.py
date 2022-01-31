@@ -128,7 +128,31 @@ Player8 = player(money(),Hand())
 
 centre_chips = Entity(parent=scene,model="quad",position=(0,0,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png",visible=False)
 
-card_deck = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(1,0.01,1.4),position=(0,0,-0.1),rotation=(270,0,180))
+player1_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.7),position=(-0.5,-3,-0.5),rotation=(270,0,0))
+player1_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.7),position=(0.55,-3,-0.5),rotation=(270,0,0))
+
+player2_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-5,-1.6,-0.4),rotation=(325,90,270))
+player2_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-5.4,-0.8,-0.4),rotation=(325,90,270))
+
+player3_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-5.3,0.9,-0.4),rotation=(10,90,270))
+player3_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-5.2,1.8,-0.4),rotation=(10,90,270))
+
+player4_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-2.75,3,-0.4),rotation=(60,90,270))
+player4_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-1.9,3.3,-0.4),rotation=(60,90,270))
+
+player5_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(0.55,3,-0.4),rotation=(100,90,270))
+player5_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(1.4,2.8,-0.4),rotation=(100,90,270))
+
+player6_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(4.2,2.2,-0.4),rotation=(130,90,270))
+player6_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(4.9,1.6,-0.4),rotation=(130,90,270))
+
+player7_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(5.5,-0.5,-0.4),rotation=(170,90,270))
+player7_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(5.5,-1.4,-0.4),rotation=(170,90,270))
+
+player8_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(3.05,-2.45,-0.4),rotation=(225,90,270))
+player8_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(2.4,-3,-0.4),rotation=(225,90,270))
+
+card_models = [player1_card1, player1_card2, player2_card1, player2_card2, player3_card1, player3_card2, player4_card1, player4_card2, player5_card1, player5_card2, player6_card1, player6_card2, player7_card1, player7_card2, player8_card1, player8_card2]
 
 player1_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
 player2_chips = duplicate(player1_chips,position=(-4,-1,-0.1))
@@ -162,7 +186,7 @@ Final_Button.on_click = lambda: Final_Button_func(player1_bet_chips,centre_chips
 
 Debug = False
 
-if Debug == True:
+if Debug == True: # Debug mode doesn't work anymore, Bet() missing 'amount' argument.
 	Bet_button = my_button(message="Bet",x=-1,y=-3,scale=(1,0.25))
 	Bet_button.on_click = lambda: Bet(player1_bet_chips,centre_chips,bets,Player1)
 	Win_button = my_button(message="Win",x=-2,y=-3,scale=(1,0.25))
@@ -203,11 +227,18 @@ if Debug == True:
 	Win8_button = my_button(message="p8Win",x=3,y=-3,scale=(1,0.25))
 	Win8_button.on_click =lambda: Win(centre_chips,player8_bet_chips,player8_chips,bets,Player8)
 
-P1_money = Text(text=f"p1 money:{Player1.money.money}",scale = 15,parent = scene, origin=(-1,9),color = Color(0,0,0,0.8))
+P1_money = Text(text=f"p1 money:{Player1.money.money}",scale = 15,parent = scene, origin=(-2,9),color = Color(0,0,0,0.8))
 
 def update():
 	P1_money.text = f"p1 money:{Player1.money.money}"
-	card_deck.rotation_y += 1
+	#player1_card1.rotation_z += 1
+	#player2_card1.rotation_z += 1 # flip card to reveal
+	#player3_card1.rotation_z += 1
+	#player3_card1.rotation_y += 1
+	#player3_card1.rotation_x -= 1
+	#print(player3_card1.rotation)
+	for crd in card_models:
+		crd.rotation_z += 1
 
 
 app.run()
