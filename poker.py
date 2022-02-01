@@ -112,8 +112,9 @@ def find_card_texture(card): # should be called when a card is dealt. Use to upd
 	texture = f"Cards/Fron pngs/{card.suit.lower()}_{rank}.png"
 	return texture
 
-bets = []
 central = Central(pot(),Community_Cards())
+#central.pot.bet = 10	#testing
+#central.pot.total = 10	#testing
 
 table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
 table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
@@ -127,39 +128,39 @@ Player6 = player(money(),Hand())
 Player7 = player(money(),Hand())
 Player8 = player(money(),Hand())
 
+Players = [Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8]
+
 centre_chips = Entity(parent=scene,model="quad",position=(0,0,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png",visible=False)
 
-player1_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player1.hand.Cards[0].suit+"_"+str(Player1.hand.Cards[0].face)+".png",scale=(0.5,0.005,0.7),position=(-0.5,-3,-0.5),rotation=(270,0,0))
-player1_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player1.hand.Cards[1].suit+"_"+str(Player1.hand.Cards[1].face)+".png",scale=(0.5,0.005,0.7),position=(0.55,-3,-0.5),rotation=(270,0,0))
+player1_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.7),position=(-0.5,-3,-0.5),rotation=(270,0,0))
+player1_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.7),position=(0.55,-3,-0.5),rotation=(270,0,0))
+player2_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-5,-1.6,-0.4),rotation=(325,90,270))
+player2_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-5.4,-0.8,-0.4),rotation=(325,90,270))
+player3_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-5.3,0.9,-0.4),rotation=(10,90,270))
+player3_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-5.2,1.8,-0.4),rotation=(10,90,270))
+player4_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-2.75,3,-0.4),rotation=(60,90,270))
+player4_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-1.9,3.3,-0.4),rotation=(60,90,270))
+player5_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(0.55,3,-0.4),rotation=(100,90,270))
+player5_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(1.4,2.8,-0.4),rotation=(100,90,270))
+player6_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(4.2,2.2,-0.4),rotation=(130,90,270))
+player6_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(4.9,1.6,-0.4),rotation=(130,90,270))
+player7_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(5.5,-0.5,-0.4),rotation=(170,90,270))
+player7_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(5.5,-1.4,-0.4),rotation=(170,90,270))
+player8_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(3.05,-2.45,-0.4),rotation=(225,90,270))
+player8_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(2.4,-3,-0.4),rotation=(225,90,270))
 
-player2_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player2.hand.Cards[0].suit+"_"+str(Player2.hand.Cards[0].face)+".png",scale=(0.4,0.005,0.56),position=(-5,-1.6,-0.4),rotation=(325,90,270))
-player2_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player2.hand.Cards[1].suit+"_"+str(Player2.hand.Cards[1].face)+".png",scale=(0.4,0.005,0.56),position=(-5.4,-0.8,-0.4),rotation=(325,90,270))
-
-player3_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player3.hand.Cards[0].suit+"_"+str(Player3.hand.Cards[0].face)+".png",scale=(0.4,0.005,0.56),position=(-5.3,0.9,-0.4),rotation=(10,90,270))
-player3_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player3.hand.Cards[1].suit+"_"+str(Player3.hand.Cards[1].face)+".png",scale=(0.4,0.005,0.56),position=(-5.2,1.8,-0.4),rotation=(10,90,270))
-
-player4_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player4.hand.Cards[0].suit+"_"+str(Player4.hand.Cards[0].face)+".png",scale=(0.4,0.005,0.56),position=(-2.75,3,-0.4),rotation=(60,90,270))
-player4_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player4.hand.Cards[1].suit+"_"+str(Player4.hand.Cards[1].face)+".png",scale=(0.4,0.005,0.56),position=(-1.9,3.3,-0.4),rotation=(60,90,270))
-
-player5_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player5.hand.Cards[0].suit+"_"+str(Player5.hand.Cards[0].face)+".png",scale=(0.4,0.005,0.56),position=(0.55,3,-0.4),rotation=(100,90,270))
-player5_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player5.hand.Cards[1].suit+"_"+str(Player5.hand.Cards[1].face)+".png",scale=(0.4,0.005,0.56),position=(1.4,2.8,-0.4),rotation=(100,90,270))
-
-player6_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player6.hand.Cards[0].suit+"_"+str(Player6.hand.Cards[0].face)+".png",scale=(0.4,0.005,0.56),position=(4.2,2.2,-0.4),rotation=(130,90,270))
-player6_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player6.hand.Cards[1].suit+"_"+str(Player6.hand.Cards[1].face)+".png",scale=(0.4,0.005,0.56),position=(4.9,1.6,-0.4),rotation=(130,90,270))
-
-player7_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player7.hand.Cards[0].suit+"_"+str(Player7.hand.Cards[0].face)+".png",scale=(0.4,0.005,0.56),position=(5.5,-0.5,-0.4),rotation=(170,90,270))
-player7_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player7.hand.Cards[1].suit+"_"+str(Player7.hand.Cards[1].face)+".png",scale=(0.4,0.005,0.56),position=(5.5,-1.4,-0.4),rotation=(170,90,270))
-
-player8_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player8.hand.Cards[0].suit+"_"+str(Player8.hand.Cards[0].face)+".png",scale=(0.4,0.005,0.56),position=(3.05,-2.45,-0.4),rotation=(225,90,270))
-player8_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player8.hand.Cards[1].suit+"_"+str(Player8.hand.Cards[1].face)+".png",scale=(0.4,0.005,0.56),position=(2.4,-3,-0.4),rotation=(225,90,270))
-
-community_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(0,-1,-0.2),rotation=(270,0,0))
-community_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-0.9,-1,-0.2),rotation=(270,0,0))
-community_card3 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(0.9,-1,-0.2),rotation=(270,0,0))
-community_card4 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-1.8,-1,-0.2),rotation=(270,0,0))
-community_card5 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(1.8,-1,-0.2),rotation=(270,0,0))
+community_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.63),position=(0,-1,-0.2),rotation=(270,0,0))
+community_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.63),position=(-1,-1,-0.2),rotation=(270,0,0))
+community_card3 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.63),position=(1,-1,-0.2),rotation=(270,0,0))
+community_card4 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.63),position=(-2,-1,-0.2),rotation=(270,0,0))
+community_card5 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.63),position=(2,-1,-0.2),rotation=(270,0,0))
 
 card_models = [player1_card1, player1_card2, player2_card1, player2_card2, player3_card1, player3_card2, player4_card1, player4_card2, player5_card1, player5_card2, player6_card1, player6_card2, player7_card1, player7_card2, player8_card1, player8_card2]#, community_card1, community_card2, community_card3, community_card4, community_card5]
+
+#for i in Players:
+#	for s in i.Cards:
+
+
 
 player1_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
 player2_chips = duplicate(player1_chips,position=(-4,-1,-0.1))
@@ -191,12 +192,13 @@ Raise_Button = my_button(message="Raise",x=-3.75,y=-3.5,scale=(1.5,0.65))
 Raise_Button.on_click = lambda: change_enable(bet_slider,Final_Button)
 Final_Button.on_click = lambda: Final_Button_func(player1_bet_chips,centre_chips,bets,Player1,bet_slider,Final_Button)
 
-Debug = True
+#Debug = False
 
-if Debug == True: # Debug mode doesn't work anymore, Bet() missing 'amount' argument.
+if Debug == True: 
 	Com_button = my_button(message="Draw Community Cards",x=-4,y=-2.5,scale=(5,0.5))
 	Com_button.on_click = lambda: central.Com_Cards.draw()
 
+	#keep commented cause these buttons dont work \/
 
 	"""Bet_button = my_button(message="Bet",x=-1,y=-3,scale=(1,0.25))
 	Bet_button.on_click = lambda: Bet(player1_bet_chips,centre_chips,bets,Player1)
