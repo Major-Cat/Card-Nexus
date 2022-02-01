@@ -109,6 +109,13 @@ def Final_Button_func(bet_chip,centre,bets,player,bet_slider,Final_Button):
 	bet_slider.value = bet_slider.min
 	change_enable(bet_slider,Final_Button)
 
+
+def find_card_texture(card): # should be called when a card is dealt. Use to update invisble cards textures prior to becomeing visible.
+	ranks = "23456789tjqka"
+	rank = ranks[card.value-2]
+	texture = f"Cards/Fron pngs/{card.suit.lower()}_{rank}.png"
+	return texture
+
 bets = []
 central = Central(pot(),Community_Cards())
 central.pot.bet = 10	#testing
@@ -152,7 +159,13 @@ player7_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="
 player8_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(3.05,-2.45,-0.4),rotation=(225,90,270))
 player8_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(2.4,-3,-0.4),rotation=(225,90,270))
 
-card_models = [player1_card1, player1_card2, player2_card1, player2_card2, player3_card1, player3_card2, player4_card1, player4_card2, player5_card1, player5_card2, player6_card1, player6_card2, player7_card1, player7_card2, player8_card1, player8_card2]
+community_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(0,-1,-0.2),rotation=(270,0,0))
+community_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-0.9,-1,-0.2),rotation=(270,0,0))
+community_card3 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(0.9,-1,-0.2),rotation=(270,0,0))
+community_card4 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-1.8,-1,-0.2),rotation=(270,0,0))
+community_card5 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(1.8,-1,-0.2),rotation=(270,0,0))
+
+card_models = [player1_card1, player1_card2, player2_card1, player2_card2, player3_card1, player3_card2, player4_card1, player4_card2, player5_card1, player5_card2, player6_card1, player6_card2, player7_card1, player7_card2, player8_card1, player8_card2]#, community_card1, community_card2, community_card3, community_card4, community_card5]
 
 player1_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
 player2_chips = duplicate(player1_chips,position=(-4,-1,-0.1))
