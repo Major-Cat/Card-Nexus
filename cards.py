@@ -6,6 +6,7 @@ class Card:
 		self.suit = suit
 		self.face = face
 		self.make_face()
+		if self.face == "": self.face = self.value
 
 	def make_face(self):
 		if self.value == 14: self.face = "A"
