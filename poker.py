@@ -12,9 +12,8 @@ class my_button(Button):
 		super().__init__(parent = scene, text = message, color = color.light_gray, texture = "white_cube", highlight_color = color.white, pressed_color = color.dark_gray, position = (x,y), scale = scale,enabled=enabled)
 
 class Community_Cards():
-	def __init__(self,Cards=[],Entities=[]):
+	def __init__(self,Cards=[]):
 		self.Cards=Cards
-		self.Entities = Entities
 
 	def draw(self):
 		if len(self.Cards) == 0:
@@ -23,11 +22,6 @@ class Community_Cards():
 			self.Cards.append(l.draw())
 		elif len(self.Cards) == 3 or len(self.Cards) == 4:
 			self.Cards.append(l.draw())
-		for i in range(len(self.Cards)):
-			self.Entities[i].texture="Cards/Front pngs/"+self.Cards[i].suit+"_"+str(self.Cards[i].face)+".png"
-			self.Entities[i].visible = True
-
-
 		
 class pot():
 	def __init__(self,bet=0,total=0):
@@ -39,10 +33,6 @@ class Hand():
 		self.Cards = []
 		self.Cards.append(l.draw())
 		self.Cards.append(l.draw())
-
-#def call(money,pot):
-#	change = pot.bet - money.bet
-#	money.money -= change
 
 class money():
 	def __init__(self,money=100,bet=0):
@@ -116,6 +106,14 @@ def Final_Button_func(bet_chip,centre,bets,player,bet_slider,Final_Button):
 	bet_slider.value = bet_slider.min
 	change_enable(bet_slider,Final_Button)
 
+def find_card_texture(card): # should be called when a card is dealt. Use to update invisble cards textures prior to becomeing visible.
+	ranks = "23456789tjqka"
+	rank = ranks[card.value-2]
+	texture = f"Cards/Fron pngs/{card.suit.lower()}_{rank}.png"
+	return texture
+
+bets = []
+central = Central(pot(),Community_Cards())
 
 table = Entity(parent=scene,model="circle",position=(0,0,0),scale=(11,5.5),color=color.color(100,1,0.4))
 table_edge = Entity(parent=scene,model="circle",position=(0,0,1),scale=(12,6),color=color.color(20,1,0.4))
@@ -155,15 +153,13 @@ player7_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="
 player8_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player8.hand.Cards[0].suit+"_"+str(Player8.hand.Cards[0].face)+".png",scale=(0.4,0.005,0.56),position=(3.05,-2.45,-0.4),rotation=(225,90,270))
 player8_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/"+Player8.hand.Cards[1].suit+"_"+str(Player8.hand.Cards[1].face)+".png",scale=(0.4,0.005,0.56),position=(2.4,-3,-0.4),rotation=(225,90,270))
 
-com_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.45,0.005,0.63),position=(-2,-0.5,-0.4),rotation=(270,0,0),visible=False)
-com_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.45,0.005,0.63),position=(-1,-0.5,-0.4),rotation=(270,0,0),visible=False)
-com_card3 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.45,0.005,0.63),position=(0,-0.5,-0.4),rotation=(270,0,0),visible=False)
-com_card4 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.45,0.005,0.63),position=(1,-0.5,-0.4),rotation=(270,0,0),visible=False)
-com_card5 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.45,0.005,0.63),position=(2,-0.5,-0.4),rotation=(270,0,0),visible=False)
+community_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(0,-1,-0.2),rotation=(270,0,0))
+community_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-0.9,-1,-0.2),rotation=(270,0,0))
+community_card3 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(0.9,-1,-0.2),rotation=(270,0,0))
+community_card4 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-1.8,-1,-0.2),rotation=(270,0,0))
+community_card5 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(1.8,-1,-0.2),rotation=(270,0,0))
 
-central = Central(pot(),Community_Cards(Entities=[com_card1,com_card2,com_card3,com_card4,com_card5]))
-
-card_models = [player1_card1, player1_card2, player2_card1, player2_card2, player3_card1, player3_card2, player4_card1, player4_card2, player5_card1, player5_card2, player6_card1, player6_card2, player7_card1, player7_card2, player8_card1, player8_card2,com_card1,com_card2,com_card3,com_card4,com_card5]
+card_models = [player1_card1, player1_card2, player2_card1, player2_card2, player3_card1, player3_card2, player4_card1, player4_card2, player5_card1, player5_card2, player6_card1, player6_card2, player7_card1, player7_card2, player8_card1, player8_card2]#, community_card1, community_card2, community_card3, community_card4, community_card5]
 
 player1_chips = Entity(parent=scene,model="quad",position=(-1,-2,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png")
 player2_chips = duplicate(player1_chips,position=(-4,-1,-0.1))
