@@ -24,8 +24,3 @@ if read: # Process = Pickle to open file, gzip to decompress, pickle to dict.
 	lookup = pickle.loads(lookup)
 	print(type(lookup))
 
-
-
-
-#pickle.dump(lookup, open('Postflop_lookup_b.pkl','wb'))
-#print(zlib.decompress(output_hand[0]).decode())
