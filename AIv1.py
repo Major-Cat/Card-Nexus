@@ -3,6 +3,7 @@ from json import load
 from random import choices
 from pickle import load, loads
 from gzip import decompress
+from math import exp
 
 deck = Deck()
 
@@ -14,6 +15,12 @@ def think(hand, community):
 		for card in cards:
 			formated_cards.append(str(ranks[card.value-2] + card.suit))
 		return formated_cards
+
+	def sigmoid(x):
+		k = 0.1 # logistic growth rate
+		x0 = 40 # Sigmoids midpoint
+		L = 100 # Curves maximum value
+		return L / (1 + exp(-k*(x - x0)))
 
 	def sort_hand_into_string(list_of_cards):
 		temp_list = []
@@ -37,7 +44,9 @@ def think(hand, community):
 				lookup = load(f) # Loads compressed binary dictionary to memory
 			lookup = decompress(lookup) # Decompresses compressed binary dictionary
 			lookup = loads(lookup) # Returns python dict object from bytes
-			print(lookup['Hands'][hand_string])
+			confidence = lookup['Hands'][hand_string]
+			print(f"Obama's confidence = {confidence}%")
+			print(f"Obama's is {round(sigmoid(confidence),2)}% likely to keep playing.\n")
 
 	else: # Preflop
 		with open('preflop_lookup.json', 'r') as f:
@@ -52,7 +61,7 @@ def think(hand, community):
 		print(choices(options, weights))
 
 
-for j in range(20): # For debugging: prints the AI weighting of 20 different hands.
+for j in range(10): # For debugging: prints the AI weighting of 20 different hands.
 	hand = []
 	community = []
 
