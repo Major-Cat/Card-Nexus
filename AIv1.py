@@ -6,8 +6,7 @@ from math import exp
 from itertools import combinations
 
 
-
-def think(hand, community):
+def think(hand, community, sunk_costs):
 	def formatting(cards):
 		ranks = '23456789TJQKA'
 		formated_cards = []
@@ -15,12 +14,12 @@ def think(hand, community):
 			formated_cards.append(str(ranks[card.value-2] + card.suit))
 		return formated_cards
 
-	def sigmoid(x):
+	def sigmoid(x, sunk_costs):
 		# After lots of simulated games I believe Obama is naturally a coward.
 		# We should pass money variables to this sigmoid function to change his decisions.
 		# I think this will make Obama a true Sigmoid male. -FSR
 		k = 0.1 # logistic growth rate
-		x0 = 40 # Sigmoids midpoint
+		x0 = 40 - sunk_costs # Sigmoids midpoint
 		L = 100 # Curves maximum value
 		return L / (1 + exp(-k*(x - x0)))
 
@@ -37,26 +36,26 @@ def think(hand, community):
 				string += str(sorted(temp_list)[x])
 			return string # Use this return for Post-flop
 
-	def postflop_evaluate(hand):
+	def postflop_evaluate(hand, lookup):
 		hand_string = sort_hand_into_string(hand)
-		with open('Postflop_lookup.pkl', 'rb') as f: # Opens compressed binary file
-			lookup = load(f) # Loads compressed binary dictionary to memory
-		lookup = decompress(lookup) # Decompresses compressed binary dictionary
-		lookup = loads(lookup) # Returns python dict object from bytes
 		confidence = lookup['Hands'][hand_string]
 		return confidence
 
 	print(f'Hand = {sort_hand_into_string(hand+community)}')
 	if len(community) > 0: # Preflop check
+		with open('Postflop_lookup.pkl', 'rb') as f: # Opens compressed binary file
+			lookup = load(f) # Loads compressed binary dictionary to memory
+		lookup = decompress(lookup) # Decompresses compressed binary dictionary
+		lookup = loads(lookup) # Returns python dict object from bytes
 		if len(community) == 3: # Round 1 check
 			hand = hand + community
-			confidence = postflop_evaluate(hand)
+			confidence = postflop_evaluate(hand, lookup)
 		else:
-			confidence = max(postflop_evaluate(combo) for combo in combinations(hand + community, 5)) # This is very slow (eval takes 1.2s and is run 21 times for 7 card scenarios)
+			confidence = max(postflop_evaluate(combo, lookup) for combo in combinations(hand + community, 5))
 		print(f"Obama's confidence = {confidence}%")
-		print(f"Obama's is {round(sigmoid(confidence),2)}% likely to keep playing.")
+		print(f"Obama's is {round(sigmoid(confidence, sunk_costs),2)}% likely to keep playing.")
 		options = ['Play', 'Fold']
-		weights = [sigmoid(confidence), 100-sigmoid(confidence)]
+		weights = [sigmoid(confidence, sunk_costs), 100-sigmoid(confidence, sunk_costs)]
 		choice = choices(options, weights)
 		print(f"Obama has chosen to {choice}.\n")
 		return choice
@@ -85,8 +84,10 @@ community = []
 hands = []
 player_count = 8
 
+
 #round 0
 print('\nRound 0')
+sunk_costs = 0
 
 for i in range(player_count):
 	hand = []
@@ -94,7 +95,7 @@ for i in range(player_count):
 		hand.append(deck.draw())
 	hands.append((i, hand))
 
-hands[:] = [hand for _,hand in hands if not think(hand, community) == ['Fold']]
+hands[:] = [hand for _,hand in hands if not think(hand, community, sunk_costs) == ['Fold']]
 
 
 print(f'After pre-flop, {len(hands)} players remain')
@@ -110,9 +111,11 @@ for i in range(3):
 	community.append(deck.draw())
 
 print('\nRound 1')
+sunk_costs = 10
+print('Everyone has bet 10 (total of 10).\n')
 
 
-hands[:] = [hand for hand in hands if not think(hand, community) == ['Fold']]
+hands[:] = [hand for hand in hands if not think(hand, community, sunk_costs) == ['Fold']]
 
 print(f'After round 1, {len(hands)} players remain')
 
@@ -126,8 +129,10 @@ elif len(hands) == 1:
 community.append(deck.draw())
 
 print('\nRound 2')
+sunk_costs = 20
+print('Everyone has bet another 10 (total of 20).\n')
 
-hands[:] = [hand for hand in hands if not think(hand, community) == ['Fold']]
+hands[:] = [hand for hand in hands if not think(hand, community, sunk_costs) == ['Fold']]
 
 print(f'After round 2, {len(hands)} players remain')
 
@@ -141,8 +146,10 @@ elif len(hands) == 1:
 community.append(deck.draw())
 
 print('\nRound 3')
+sunk_costs = 30
+print('Everyone has bet another 10 (total of 30).\n')
 
-hands[:] = [hand for hand in hands if not think(hand, community) == ['Fold']]
+hands[:] = [hand for hand in hands if not think(hand, community, sunk_costs) == ['Fold']]
 
 print(f'After round 3, {len(hands)} players remain')
 
