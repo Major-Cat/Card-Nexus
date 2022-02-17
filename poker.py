@@ -56,6 +56,11 @@ class Central():
 		self.pot = pot
 		self.Com_Cards = Community_Cards
 
+class Card_entity(Entity):
+	def __init__(self,position,scale,rotation,texture="Cards/Front pngs/s_a.png",visible=True):
+		super().__init__(parent=scene,model="Cards/Other pngs/block.obj",texture=texture,rotation=rotation,scale=scale,position=position,visible=visible)
+
+
 def Win(centre,winner_bet,winner,bets,player):
 	centre.visible = False
 	for i in bets:
@@ -132,30 +137,31 @@ Players = [Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player
 
 centre_chips = Entity(parent=scene,model="quad",position=(0,0,-0.1),scale=(0.6,0.4),texture="Cards/Other pngs/chip.png",visible=False)
 
-player1_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.7),position=(-0.5,-3,-0.5),rotation=(270,0,0))
-player1_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.7),position=(0.55,-3,-0.5),rotation=(270,0,0))
-player2_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-5,-1.6,-0.4),rotation=(325,90,270))
-player2_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-5.4,-0.8,-0.4),rotation=(325,90,270))
-player3_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-5.3,0.9,-0.4),rotation=(10,90,270))
-player3_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-5.2,1.8,-0.4),rotation=(10,90,270))
-player4_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-2.75,3,-0.4),rotation=(60,90,270))
-player4_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(-1.9,3.3,-0.4),rotation=(60,90,270))
-player5_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(0.55,3,-0.4),rotation=(100,90,270))
-player5_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(1.4,2.8,-0.4),rotation=(100,90,270))
-player6_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(4.2,2.2,-0.4),rotation=(130,90,270))
-player6_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(4.9,1.6,-0.4),rotation=(130,90,270))
-player7_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(5.5,-0.5,-0.4),rotation=(170,90,270))
-player7_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(5.5,-1.4,-0.4),rotation=(170,90,270))
-player8_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(3.05,-2.45,-0.4),rotation=(225,90,270))
-player8_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.4,0.005,0.56),position=(2.4,-3,-0.4),rotation=(225,90,270))
+player1_card1 = Card_entity(scale=(0.5,0.005,0.7),position=(-0.5,-3,-0.5),rotation=(270,0,0))
+player1_card2 = Card_entity(scale=(0.5,0.005,0.7),position=(0.55,-3,-0.5),rotation=(270,0,0))
+player2_card1 = Card_entity(scale=(0.4,0.005,0.56),position=(-5,-1.6,-0.4),rotation=(325,90,270))
+player2_card2 = Card_entity(scale=(0.4,0.005,0.56),position=(-5.4,-0.8,-0.4),rotation=(325,90,270))
+player3_card1 = Card_entity(scale=(0.4,0.005,0.56),position=(-5.3,0.9,-0.4),rotation=(10,90,270))
+player3_card2 = Card_entity(scale=(0.4,0.005,0.56),position=(-5.2,1.8,-0.4),rotation=(10,90,270))
+player4_card1 = Card_entity(scale=(0.4,0.005,0.56),position=(-2.75,3,-0.4),rotation=(60,90,270))
+player4_card2 = Card_entity(scale=(0.4,0.005,0.56),position=(-1.9,3.3,-0.4),rotation=(60,90,270))
+player5_card1 = Card_entity(scale=(0.4,0.005,0.56),position=(0.55,3,-0.4),rotation=(100,90,270))
+player5_card2 = Card_entity(scale=(0.4,0.005,0.56),position=(1.4,2.8,-0.4),rotation=(100,90,270))
+player6_card1 = Card_entity(scale=(0.4,0.005,0.56),position=(4.2,2.2,-0.4),rotation=(130,90,270))
+player6_card2 = Card_entity(scale=(0.4,0.005,0.56),position=(4.9,1.6,-0.4),rotation=(130,90,270))
+player7_card1 = Card_entity(scale=(0.4,0.005,0.56),position=(5.5,-0.5,-0.4),rotation=(170,90,270))
+player7_card2 = Card_entity(scale=(0.4,0.005,0.56),position=(5.5,-1.4,-0.4),rotation=(170,90,270))
+player8_card1 = Card_entity(scale=(0.4,0.005,0.56),position=(3.05,-2.45,-0.4),rotation=(225,90,270))
+player8_card2 = Card_entity(scale=(0.4,0.005,0.56),position=(2.4,-3,-0.4),rotation=(225,90,270))
 
-community_card1 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.63),position=(0,-1,-0.2),rotation=(270,0,0))
-community_card2 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.63),position=(-1,-1,-0.2),rotation=(270,0,0))
-community_card3 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.63),position=(1,-1,-0.2),rotation=(270,0,0))
-community_card4 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.63),position=(-2,-1,-0.2),rotation=(270,0,0))
-community_card5 = Entity(parent=scene,model="Cards/Other pngs/block.obj",texture="Cards/Front pngs/s_a.png",scale=(0.5,0.005,0.63),position=(2,-1,-0.2),rotation=(270,0,0))
+community_card1 = Card_entity(scale=(0.5,0.005,0.63),position=(0,-1,-0.2),rotation=(270,0,0))
+community_card2 = Card_entity(scale=(0.5,0.005,0.63),position=(-1,-1,-0.2),rotation=(270,0,0))
+community_card3 = Card_entity(scale=(0.5,0.005,0.63),position=(1,-1,-0.2),rotation=(270,0,0))
+community_card4 = Card_entity(scale=(0.5,0.005,0.63),position=(-2,-1,-0.2),rotation=(270,0,0))
+community_card5 = Card_entity(scale=(0.5,0.005,0.63),position=(2,-1,-0.2),rotation=(270,0,0))
 
-card_models = [player1_card1, player1_card2, player2_card1, player2_card2, player3_card1, player3_card2, player4_card1, player4_card2, player5_card1, player5_card2, player6_card1, player6_card2, player7_card1, player7_card2, player8_card1, player8_card2]#, community_card1, community_card2, community_card3, community_card4, community_card5]
+card_models = [player1_card1, player1_card2, player2_card1, player2_card2, player3_card1, player3_card2, player4_card1, player4_card2, player5_card1, player5_card2, player6_card1, player6_card2, player7_card1, player7_card2, player8_card1, player8_card2#]
+, community_card1, community_card2, community_card3, community_card4, community_card5]
 
 #for i in Players:
 #	for s in i.Cards:
@@ -247,6 +253,6 @@ def update():
 	P1_money.text = f"Bank:{Player1.money.money}"
 	for crd in card_models:
 		crd.rotation_z += 1
-
+		#pass
 
 app.run()
