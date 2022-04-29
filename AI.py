@@ -6,28 +6,27 @@ from math import exp
 from itertools import combinations
 
 
-def think(hand, community, sunk_costs):
-	def formatting(cards):
-		ranks = '23456789TJQKA'
+def think(hand, community, sunk_costs):	#how the AI thinks
+	def formatting(cards):	#formats the cards into a way that the AI can understand
+		ranks = '23456789TJQKA'	#ranks of each face
 		formated_cards = []
 		for card in cards:
 			formated_cards.append(str(ranks[card.value-2] + card.suit))
 		return formated_cards
 
-	def sigmoid(x, sunk_costs):
-		# After lots of simulated games I believe Obama is naturally a coward.
-		# We should pass money variables to this sigmoid function to change his decisions.
-		# I think this will make Obama a true Sigmoid male. -FSR
+	def sigmoid(x, sunk_costs):	#curve used to decide whether the AI will play
+		# After lots of simulated games the AI is seems to be a coward.
+		# pass money variables to this sigmoid function to change decisions.
 		k = 0.1 # logistic growth rate
 		x0 = 40 - sunk_costs # Sigmoids midpoint
 		L = 100 # Curves maximum value
 		return L / (1 + exp(-k*(x - x0)))
 
-	def sort_hand_into_string(list_of_cards):
+	def sort_hand_into_string(list_of_cards):	#converts the AIs hand into a string that can be used with the lookup table
 		temp_list = []
 		for card in list_of_cards:
 			temp_value = card.value
-			temp_list.append(str(str(temp_value)+str(card.suit)))
+			temp_list.append(str(str(temp_value)+str(card.suit)))	#creates formatted list
 		if len(list_of_cards) == 2:
 			return str(sorted(temp_list)[0]+sorted(temp_list)[1]) # Use this return for Pre-flop
 		else:
@@ -39,7 +38,7 @@ def think(hand, community, sunk_costs):
 	def postflop_evaluate(hand, lookup):
 		hand_string = sort_hand_into_string(hand)
 		confidence = lookup['Hands'][hand_string]
-		return confidence
+		return confidence	#chance of playing with current hand
 
 	print(f'Hand = {sort_hand_into_string(hand+community)}')
 	if len(community) > 0: # Preflop check
@@ -52,27 +51,27 @@ def think(hand, community, sunk_costs):
 			confidence = postflop_evaluate(hand, lookup)
 		else:
 			confidence = max(postflop_evaluate(combo, lookup) for combo in combinations(hand + community, 5))
-		print(f"Obama's confidence = {confidence}%")
-		print(f"Obama's is {round(sigmoid(confidence, sunk_costs),2)}% likely to keep playing.")
+		print(f"Confidence = {confidence}%")
+		print(f"AI is {round(sigmoid(confidence, sunk_costs),2)}% likely to keep playing.")
 		options = ['Play', 'Fold']
 		weights = [sigmoid(confidence, sunk_costs), 100-sigmoid(confidence, sunk_costs)]
 		choice = choices(options, weights)
-		print(f"Obama has chosen to {choice}.\n")
+		print(f"AI has chosen to {choice}.\n")
 		return choice
 
 
-	else: # Preflop
-		with open(r'Storage\preflop_lookup.json', 'r') as f:
+	else: # Preflop, much simpler than postflop
+		with open(r'Storage\preflop_lookup.json', 'r') as f:	#preflop lookup table
 			lookup = jload(f)
 		lookup = dict(sorted(lookup['Hands'].items(), key=lambda item: item[1]))
 		hand_count = len(lookup.items())
 		hand_index = list(lookup.keys()).index(sort_hand_into_string(hand))
-		confidence = (hand_index/hand_count)*100
+		confidence = (hand_index/hand_count)*100 #where in the dictionary vs number of items in the dictionary gives chance of play
 		print(f'Pre-flop confidence = {round(confidence, 1)}%')
 		options = ['Play', 'Fold']
 		weights = [confidence, 100 - confidence]
 		choice = choices(options, weights)
-		print(f'Obama has chosen to {choice}\n')
+		print(f'AI has chosen to {choice}\n')
 		return choice
 
 

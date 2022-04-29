@@ -1,27 +1,17 @@
-def bilinear_interpolation(x, y, points):
-    '''Interpolate (x,y) from values associated with four points.
-    The four points are a list of four triplets:  (x, y, value).
-    The four points can be in any order.  They should form a rectangle.
-
-        >>> bilinear_interpolation(12, 5.5,
-        ...                        [(10, 4, 100),
-        ...                         (20, 4, 200),
-        ...                         (10, 6, 150),
-        ...                         (20, 6, 300)])
-        165.0
-
-    '''
-    # See formula at:  http://en.wikipedia.org/wiki/Bilinear_interpolation
-
+def bilinear_interpolation(x, y, points):  
+    #effectivley a 3D line of best fit using 4 points
+    #compared to results found online this seems functional
     points = sorted(points)               # order points by x, then by y
-    (x1, y1, q11), (_x1, y2, q12), (x2, _y1, q21), (_x2, _y2, q22) = points
+    (x1, y1, z1), (_x1, y2, z2), (x2, _y1, z3), (_x2, _y2, z4) = points #generates each of the coordinates for the four points being measured between
 
-    if x1 != _x1 or x2 != _x2 or y1 != _y1 or y2 != _y2:
+    if x1 != _x1 or x2 != _x2 or y1 != _y1 or y2 != _y2:    #confirms the points make a rectangle to interpolate between
         raise ValueError('points do not form a rectangle')
-    if not x1 <= x <= x2 or not y1 <= y <= y2:
+    if not x1 <= x <= x2 or not y1 <= y <= y2:  #confirms point being searched for is within the confines of the rectangle
         raise ValueError('(x, y) not within the rectangle')
 
-    return (q11 * (x2 - x) * (y2 - y) + q21 * (x - x1) * (y2 - y) + q12 * (x2 - x) * (y - y1) + q22 * (x - x1) * (y - y1)) / ((x2 - x1) * (y2 - y1) + 0.0)
+    ans = (z1 * (x2 - x) * (y2 - y) + z3 * (x - x1) * (y2 - y) + z2 * (x2 - x) * (y - y1) + z4 * (x - x1) * (y - y1)) / ((x2 - x1) * (y2 - y1) + 0.0)
+    #pretty certain this works
+    return ans
 
 #draws = 43  #number of times a set of cards has been drawn
 #wins = 40    #number of times a set of cards has won in epochs
@@ -29,7 +19,7 @@ def bilinear_interpolation(x, y, points):
 #print("wins = "+str(draws*(win_ratio/100)))
 
 # EXAMPLE USE:
-#print(bilinear_interpolation(draws,win_ratio,[(1,0,20.0),(1,100,100.0),(217,0,0.1),(217,100,100.0)]))   #   x = times drawn, y = win/lose ratio (percent), q = chance of play
+#print(bilinear_interpolation(draws,win_ratio,[(1,0,20.0),(1,100,100.0),(217,0,0.1),(217,100,100.0)]))   #   x = times drawn, y = win/lose ratio (percent), z = chance of play
 
 #[(1,0,20),(1,100,100),(200,0,0),(200,100,100)] is the dataset
 #(1,0,20) = 1 draw, 0 wins, 20% chance

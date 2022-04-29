@@ -1,25 +1,17 @@
-from ursina import *
-import json
+from ursina import *	#graphics engine
 
-
-class my_button(Button):
+class my_button(Button):	# The button I will use instead of the default
 	def __init__(self,x=0,y=0,message="",width = 2):
 		super().__init__(parent = scene, text = message, color = color.light_gray, texture = "white_cube", highlight_color = color.white, pressed_color = color.dark_gray, position = (x,y), scale = (width,0.5))
 
+def run(app):	#function called by main.py to call this file
+	def new_game():		#start new game
+		scene.clear()	#removes all items (button and stuff) from the app
+		import poker	#this crashes the app
 
-
-def run(app):
-	def new_game():
+	def load_game():	#load a saved game
 		scene.clear()
-		import poker	#this breaks everything currently
-		#poker.run(app)
-		#pass
-
-	def load_game():
-		scene.clear()
-		#import poker
-		#poker.run(app)
-		pass
+		import poker	#this crashes the app
 
 	Text.size = 0.02
 	Text.default_resolution = 1080 * 0.05#

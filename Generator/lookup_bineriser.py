@@ -1,10 +1,9 @@
 import json
-import pickle
-import gzip
+import pickle	#compressor
+import gzip		#second compressor
 
-
-read = True
-write = False
+read = False
+write = True
 
 if write: # Process = Pickle to bytes, gzip to compress, Pickle to file.
 	with open('postflop_lookup.json', 'r') as f:
