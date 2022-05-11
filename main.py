@@ -46,9 +46,9 @@ def log_in_function():	#logs users in
 	password=log_pass.text
 
 	with open("Storage/account.json","r") as f:
-		datafile = json.load(f)	#searches fot the username
+		datafile = json.load(f)	#searches for the username
 	b = bytes(password, 'utf-8')
-	password = sha256(b).hexdigest()
+	password = sha256(b).hexdigest()	#hashes the input password
 
 	try:
 		if datafile[username] == password:
